@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>爆款製造機</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#C9938A; --soft-pink:#E8C4BC; --light-pink:#F5E6E3;
+  --blue:#7A9BAD; --soft-blue:#B8CFDA; --light-blue:#E3EDF3;
+  --sage:#9AAE9B; --light-sage:#E8F0E8;
+  --cream:#FAF3EE; --bg:#FAFAF8; --dark:#37352F; --medium:#5A5248; --gray:#9B9A97;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(55,53,47,0.06), 0 4px 14px rgba(55,53,47,0.05);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Noto Sans TC',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:76px;
+}
+a{color:inherit;}
+button{font-family:inherit;}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:40;
+  background:rgba(250,250,248,0.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(55,53,47,0.08);
+  padding:14px 20px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.brand{display:flex; align-items:center; gap:10px;}
+.brand .mark{
+  width:34px; height:34px; border-radius:10px;
+  background:linear-gradient(135deg,var(--pink),var(--soft-blue));
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-weight:900; font-size:15px;
+  flex-shrink:0;
+}
+.brand .title{font-weight:700; font-size:16px; letter-spacing:0.3px;}
+.brand .sub{font-size:11px; color:var(--gray); font-weight:500;}
+
+.nav-desktop{display:flex; gap:4px;}
+.nav-desktop button{
+  border:none; background:transparent; padding:9px 16px;
+  border-radius:999px; cursor:pointer; font-size:14px; font-weight:500;
+  color:var(--medium); transition:.15s;
+}
+.nav-desktop button:hover{background:var(--light-pink);}
+.nav-desktop button.active{background:var(--pink); color:#fff; font-weight:700;}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:1080px; margin:0 auto; padding:24px 20px 40px;}
+.view{display:none;}
+.view.active{display:block; animation:fade .25s ease;}
+@keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+
+.page-head{margin-bottom:20px;}
+.page-head h1{font-size:22px; margin:0 0 4px; font-weight:900;}
+.page-head p{margin:0; color:var(--medium); font-size:13.5px;}
+
+/* ---------- Cards / Dashboard ---------- */
+.stat-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:26px;
+}
+.stat-card{
+  background:#fff; border-radius:var(--radius); padding:18px 18px 16px;
+  box-shadow:var(--shadow); border:1px solid rgba(55,53,47,0.05);
+}
+.stat-card .num{font-size:28px; font-weight:900; line-height:1;}
+.stat-card .label{margin-top:8px; font-size:12.5px; color:var(--medium); font-weight:500;}
+.stat-card.pink{background:var(--light-pink);}
+.stat-card.blue{background:var(--light-blue);}
+.stat-card.sage{background:var(--light-sage);}
+.stat-card.cream{background:var(--cream);}
+
+.section-block{
+  background:#fff; border-radius:var(--radius); padding:20px;
+  box-shadow:var(--shadow); border:1px solid rgba(55,53,47,0.05);
+  margin-bottom:18px;
+}
+.section-block h2{font-size:15px; margin:0 0 14px; font-weight:700;}
+.section-block h2 .em{color:var(--pink);}
+
+.persona-snapshot{display:flex; flex-wrap:wrap; gap:10px;}
+.tag{
+  display:inline-flex; align-items:center; gap:5px;
+  background:var(--light-pink); color:var(--dark);
+  padding:6px 12px; border-radius:999px; font-size:12.5px; font-weight:500;
+}
+.tag.blue{background:var(--light-blue);}
+.tag.sage{background:var(--light-sage);}
+.tag.mbti{background:var(--dark); color:#fff; font-weight:700; letter-spacing:1px;}
+
+.empty-state{
+  text-align:center; padding:36px 20px; color:var(--gray);
+}
+.empty-state .ico{font-size:34px; margin-bottom:10px;}
+.empty-state .cta{margin-top:14px;}
+
+/* ---------- Buttons ---------- */
+.btn{
+  border:none; cursor:pointer; border-radius:10px; padding:10px 18px;
+  font-size:13.5px; font-weight:700; transition:.15s; display:inline-flex; align-items:center; gap:6px;
+}
+.btn-primary{background:var(--pink); color:#fff;}
+.btn-primary:hover{background:#b97c72;}
+.btn-secondary{background:var(--light-pink); color:var(--dark);}
+.btn-secondary:hover{background:var(--soft-pink);}
+.btn-ghost{background:transparent; color:var(--medium); border:1px solid rgba(55,53,47,0.15);}
+.btn-ghost:hover{background:var(--cream);}
+.btn-danger{background:transparent; color:#b3554a; border:1px solid rgba(179,85,74,0.3);}
+.btn-danger:hover{background:#fbeceb;}
+.btn-sm{padding:6px 12px; font-size:12px; border-radius:8px;}
+.btn-block{width:100%; justify-content:center;}
+.btn:disabled{opacity:.45; cursor:not-allowed;}
+
+/* ---------- List / filters ---------- */
+.filter-bar{
+  display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px;
+  background:#fff; padding:14px; border-radius:var(--radius); box-shadow:var(--shadow);
+  border:1px solid rgba(55,53,47,0.05);
+}
+.filter-bar input[type=text], .filter-bar select, .filter-bar input[type=date]{
+  border:1px solid rgba(55,53,47,0.14); border-radius:9px; padding:9px 12px;
+  font-size:13px; font-family:inherit; background:var(--bg); color:var(--dark);
+}
+.filter-bar input[type=text]{flex:1; min-width:160px;}
+.filter-bar select{min-width:120px;}
+
+.content-list{display:flex; flex-direction:column; gap:10px;}
+.content-card{
+  background:#fff; border-radius:12px; padding:14px 16px;
+  box-shadow:var(--shadow); border:1px solid rgba(55,53,47,0.05);
+  border-left:5px solid var(--pink);
+  display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;
+}
+.content-card.type-居家口播{border-left-color:var(--pink);}
+.content-card.type-後置配音{border-left-color:var(--blue);}
+.content-card.type-故事型{border-left-color:var(--sage);}
+.content-card.type-藏鏡人{border-left-color:var(--medium);}
+.content-card .cc-main{flex:1; min-width:200px;}
+.content-card .cc-date{font-size:11.5px; color:var(--gray); font-weight:700; letter-spacing:.4px;}
+.content-card .cc-title{font-size:15px; font-weight:700; margin:4px 0 6px;}
+.content-card .cc-meta{display:flex; gap:6px; flex-wrap:wrap;}
+.content-card .cc-script-preview{margin-top:8px; font-size:12.5px; color:var(--medium); line-height:1.5;
+  max-height:38px; overflow:hidden;}
+.content-card .cc-actions{display:flex; gap:6px; flex-shrink:0;}
+.badge{padding:3px 9px; border-radius:999px; font-size:11px; font-weight:700;}
+.badge.published{background:var(--light-sage); color:#4c6350;}
+.badge.scheduled{background:var(--light-blue); color:#3f5c6b;}
+
+/* ---------- Forms ---------- */
+.form-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.form-grid.full, .field.full{grid-column:1 / -1;}
+.field{display:flex; flex-direction:column; gap:6px;}
+.field label{font-size:12.5px; font-weight:700; color:var(--medium);}
+.field .hint{font-size:11px; color:var(--gray); font-weight:400; margin-top:-2px;}
+.field input[type=text], .field input[type=date], .field select, .field textarea{
+  border:1px solid rgba(55,53,47,0.16); border-radius:10px; padding:10px 12px;
+  font-size:14px; font-family:inherit; background:var(--bg); color:var(--dark); width:100%;
+}
+.field textarea{resize:vertical; min-height:90px; line-height:1.6;}
+.field input:focus, .field select:focus, .field textarea:focus{
+  outline:none; border-color:var(--pink); box-shadow:0 0 0 3px rgba(201,147,138,0.18);
+}
+.form-actions{display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;}
+
+/* Toast */
+#toast{
+  position:fixed; bottom:88px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--dark); color:#fff; padding:11px 20px; border-radius:999px;
+  font-size:13px; font-weight:500; opacity:0; pointer-events:none; transition:.25s; z-index:100;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+#toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+/* Bottom nav (mobile) */
+.nav-mobile{
+  display:none; position:fixed; bottom:0; left:0; right:0; z-index:50;
+  background:#fff; border-top:1px solid rgba(55,53,47,0.08);
+  padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+  justify-content:space-around;
+}
+.nav-mobile button{
+  border:none; background:none; display:flex; flex-direction:column; align-items:center; gap:2px;
+  padding:6px 4px; color:var(--gray); font-size:10.5px; font-weight:600; cursor:pointer; flex:1;
+}
+.nav-mobile button .ic{font-size:18px;}
+.nav-mobile button.active{color:var(--pink);}
+
+/* Modal */
+.modal-bg{
+  position:fixed; inset:0; background:rgba(55,53,47,0.45); z-index:90;
+  display:none; align-items:center; justify-content:center; padding:20px;
+}
+.modal-bg.show{display:flex;}
+.modal{
+  background:#fff; border-radius:16px; padding:22px; max-width:420px; width:100%;
+  box-shadow:0 20px 50px rgba(0,0,0,0.25);
+}
+.modal h3{margin:0 0 8px; font-size:16px;}
+.modal p{margin:0 0 18px; font-size:13.5px; color:var(--medium); line-height:1.6;}
+.modal .modal-actions{display:flex; gap:10px; justify-content:flex-end;}
+
+.divider{height:1px; background:rgba(55,53,47,0.08); margin:18px 0;}
+
+/* =========================================================
+   PERSONA LAB — 已改為淺色系，與其他頁面風格一致（原本是深色編輯風）
+========================================================= */
+#view-persona .lab-page{
+  --lab-ink-bg:#ffffff; --lab-ink-bg-2:var(--light-pink); --lab-line:rgba(55,53,47,0.14);
+  --lab-paper:var(--cream); --lab-paper-soft:var(--dark); --lab-ink:var(--dark);
+  --lab-gold:var(--pink); --lab-gold-soft:var(--soft-pink); --lab-rose:var(--pink); --lab-sage:var(--sage);
+  background:var(--lab-ink-bg); color:var(--lab-paper-soft);
+  border-radius:var(--radius); padding:24px 20px 32px; margin-bottom:18px;
+  box-shadow:var(--shadow); border:1px solid rgba(55,53,47,0.05);
+}
+.lab-step{margin-top:38px; padding-top:22px; border-top:1px solid var(--lab-line);}
+.lab-step:first-child{margin-top:0; padding-top:0; border-top:none;}
+.lab-step-head{display:flex; align-items:baseline; gap:12px; margin-bottom:6px;}
+.lab-step-num{
+  font-family:'Noto Sans TC',sans-serif; font-weight:700; font-size:12.5px; color:var(--lab-gold);
+  border:1px solid var(--lab-gold); border-radius:999px; width:25px; height:25px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.lab-step h3{font-family:'Noto Sans TC',sans-serif; font-size:18px; margin:0; color:var(--lab-paper-soft); font-weight:900;}
+.lab-step-desc{color:var(--medium); font-size:13px; margin:8px 0 18px; max-width:60ch; line-height:1.7;}
+.lab-step-warn{
+  font-size:12.5px; color:#9a5a1f; background:var(--cream); border-left:2px solid var(--pink);
+  padding:9px 12px; border-radius:0 6px 6px 0; margin:0 0 16px; line-height:1.7;
+}
+
+.lab-field-label{display:block; font-size:12px; color:var(--medium); font-weight:700; margin-bottom:6px;}
+.lab-page input[type=text], .lab-select{
+  width:100%; background:var(--bg); border:1px solid var(--lab-line);
+  color:var(--lab-paper-soft); padding:11px 13px; border-radius:8px;
+  font-family:'Noto Sans TC',sans-serif; font-size:14px; margin-bottom:16px;
+}
+.lab-page input[type=text]:focus, .lab-select:focus{
+  outline:none; border-color:var(--lab-gold); box-shadow:0 0 0 3px rgba(201,147,138,0.18);
+}
+
+.lab-chip-group{margin-bottom:16px;}
+.lab-chip-cat{font-size:12px; color:var(--gray); margin-bottom:8px; font-weight:700;}
+.lab-chips{display:flex; flex-wrap:wrap; gap:8px;}
+.lab-chip{
+  font-size:12.5px; padding:7px 13px; border-radius:999px; border:1px solid var(--lab-line);
+  background:var(--bg); color:var(--dark); cursor:pointer; transition:.15s; user-select:none;
+}
+.lab-chip:hover{border-color:var(--lab-gold-soft);}
+.lab-chip.selected{background:var(--lab-gold); border-color:var(--lab-gold); color:#fff; font-weight:700;}
+.lab-chip.rose.selected{background:var(--lab-rose); border-color:var(--lab-rose); color:#fff;}
+.lab-chip.sage.selected{background:var(--lab-sage); border-color:var(--lab-sage); color:#fff;}
+.lab-chip-add{display:flex; gap:8px; margin-top:6px;}
+.lab-chip-add input{flex:1; margin-bottom:0 !important;}
+
+.lab-reframe{
+  display:none; font-size:12.5px; color:#4d6350; background:var(--light-sage);
+  border-left:2px solid var(--sage); padding:10px 12px; border-radius:0 6px 6px 0;
+  margin-top:12px; line-height:1.8;
+}
+.lab-reframe.show{display:block;}
+
+.lab-quiz-toggle{
+  display:inline-flex; align-items:center; gap:8px; background:transparent;
+  border:1px dashed var(--lab-gold); color:var(--pink); padding:10px 16px;
+  border-radius:8px; font-size:13px; font-family:'Noto Sans TC',sans-serif; cursor:pointer;
+}
+.lab-quiz-toggle:hover{background:var(--light-pink);}
+#labQuizBox{display:none; margin-top:18px;}
+.lab-quiz-nav{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;}
+.lab-q-nav-btn{
+  background:transparent; border:1px solid var(--lab-line); color:var(--medium); padding:7px 13px;
+  border-radius:8px; font-size:12px; cursor:pointer; font-family:'Noto Sans TC',sans-serif;
+}
+.lab-q-nav-btn:hover:not(:disabled){border-color:var(--lab-gold-soft);}
+.lab-q-nav-btn:disabled{opacity:.35; cursor:not-allowed;}
+.lab-q-step-label{font-family:'Noto Sans TC',sans-serif; font-size:11px; color:var(--gray);}
+.lab-quiz-progress{height:3px; background:var(--lab-line); border-radius:2px; margin-bottom:18px; overflow:hidden;}
+.lab-quiz-progress-bar{height:100%; background:var(--lab-gold); width:0%; transition:.25s;}
+.lab-q-card{display:none;}
+.lab-q-card.active{display:block;}
+.lab-q-text{font-family:'Noto Sans TC',sans-serif; font-weight:700; font-size:15.5px; color:var(--lab-paper-soft); margin-bottom:12px;}
+.lab-q-opt{
+  display:block; width:100%; text-align:left; background:var(--bg);
+  border:1px solid var(--lab-line); color:var(--dark); padding:12px 14px; border-radius:8px;
+  margin-bottom:9px; font-size:13px; cursor:pointer; font-family:'Noto Sans TC',sans-serif;
+}
+.lab-q-opt:hover{border-color:var(--lab-gold-soft);}
+.lab-q-opt.chosen{border-color:var(--lab-gold); background:var(--light-pink); color:var(--dark);}
+.lab-quiz-result{display:none; background:var(--light-pink); border:1px solid var(--lab-gold); border-radius:10px; padding:16px 18px; margin-top:4px;}
+.lab-quiz-result.show{display:block;}
+.lab-quiz-result .lab-badge{font-family:'Noto Sans TC',sans-serif; font-weight:900; font-size:18px; color:var(--pink); letter-spacing:.04em;}
+.lab-retake-btn{
+  margin-top:12px; background:transparent; border:1px dashed var(--lab-gold); color:var(--pink);
+  padding:8px 14px; border-radius:8px; font-size:12px; cursor:pointer; font-family:'Noto Sans TC',sans-serif;
+}
+.lab-retake-btn:hover{background:var(--light-pink);}
+
+.lab-swatches{display:flex; flex-wrap:wrap; gap:10px;}
+.lab-swatch{width:138px; border:1px solid var(--lab-line); background:var(--bg); border-radius:10px; padding:11px; cursor:pointer; text-align:left;}
+.lab-swatch:hover{border-color:var(--lab-gold-soft);}
+.lab-swatch.active{border-color:var(--lab-gold); box-shadow:0 0 0 1px var(--lab-gold);}
+.lab-swatch-dots{display:flex; gap:5px; margin-bottom:8px;}
+.lab-swatch-dot{width:14px; height:14px; border-radius:50%;}
+.lab-swatch-name{font-size:12px; font-weight:700; color:var(--lab-paper-soft); margin-bottom:2px;}
+.lab-swatch-vibe{font-size:10.5px; color:var(--gray); line-height:1.5;}
+
+.lab-card-outer{margin-top:34px;}
+.lab-persona-card{
+  background:var(--lab-paper); color:var(--lab-ink); border-radius:14px; padding:22px 20px 26px;
+  position:relative; box-shadow:var(--shadow); border-top:5px solid var(--lab-gold);
+  border:1px solid rgba(55,53,47,0.08); border-top:5px solid var(--lab-gold);
+}
+.lab-pc-top{display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px dashed #CBBFA0; padding-bottom:12px; margin-bottom:12px; gap:12px; flex-wrap:wrap;}
+.lab-pc-eyebrow{font-family:'Noto Sans TC',sans-serif; font-weight:700; font-size:10px; letter-spacing:.1em; color:var(--pink); text-transform:uppercase;}
+.lab-pc-name{font-family:'Noto Sans TC',sans-serif; font-weight:900; font-size:19px; margin:4px 0 0;}
+.lab-pc-mbti{font-family:'Noto Sans TC',sans-serif; font-weight:900; font-size:18px; color:var(--lab-gold); border:2px solid var(--lab-gold); border-radius:8px; padding:5px 9px; min-width:58px; text-align:center;}
+.lab-pc-line{font-size:13px; color:var(--medium); margin-bottom:8px;}
+.lab-pc-section-title{font-size:10.5px; color:var(--pink); font-family:'Noto Sans TC',sans-serif; font-weight:700; letter-spacing:.05em; margin:12px 0 6px; text-transform:uppercase;}
+.lab-pc-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;}
+.lab-pc-tag{font-size:11px; background:#EFE5CC; color:#6B5A24; padding:4px 9px; border-radius:999px;}
+.lab-pc-tag.sage{background:#DEE8DA; color:#3E5240;}
+.lab-pc-tag.rose{background:#F1DAD3; color:#7A3A2C;}
+.lab-pc-tag.plain{background:#EDE7F2; color:#493D5C;}
+
+.lab-export-box{background:var(--bg); border:1px solid var(--lab-line); border-radius:10px; padding:15px; margin-top:14px;}
+#labExportText{
+  width:100%; max-height:280px; overflow:auto; background:#fff; color:var(--dark);
+  border:1px solid var(--lab-line); border-radius:8px; padding:13px;
+  font-family:'Noto Sans TC',sans-serif; font-size:12px; line-height:1.8; white-space:pre-wrap;
+}
+.lab-copy-btn{
+  margin-top:12px; background:var(--lab-gold); color:#fff; border:none; padding:10px 18px;
+  border-radius:8px; font-weight:700; font-size:13px; cursor:pointer; font-family:'Noto Sans TC',sans-serif;
+}
+.lab-copy-btn:hover{background:#b97c72;}
+.lab-copy-msg{font-size:12px; color:var(--sage); margin-left:10px; opacity:0; transition:.2s;}
+.lab-copy-msg.show{opacity:1;}
+
+.lab-actions{display:flex; gap:10px; margin-top:30px; flex-wrap:wrap;}
+.lab-step[data-step]{display:none;}
+.lab-step[data-step].lab-step-visible{display:block; border-top:none !important; margin-top:0 !important; padding-top:0 !important;}
+.lab-wizard-nav{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:32px; padding-top:20px; border-top:1px solid var(--lab-line);
+}
+.lab-wizard-progress{font-family:'Noto Sans TC',sans-serif; font-size:12px; color:var(--gray); font-weight:600;}
+.lab-progress-track{
+  display:flex; gap:5px; margin-bottom:22px;
+}
+.lab-progress-dot{
+  flex:1; height:6px; border-radius:999px; background:var(--lab-line); cursor:pointer; transition:.15s; border:none; padding:0;
+}
+.lab-progress-dot:hover{background:var(--soft-pink);}
+.lab-progress-dot.done{background:var(--soft-pink);}
+.lab-progress-dot.current{background:var(--pink);}
+.lab-btn{border:none; cursor:pointer; border-radius:10px; padding:11px 20px; font-size:13.5px; font-weight:700; font-family:'Noto Sans TC',sans-serif;}
+.lab-btn-primary{background:var(--lab-gold); color:#fff;}
+.lab-btn-primary:hover{background:#b97c72;}
+.lab-btn-ghost{background:transparent; color:var(--medium); border:1px solid var(--lab-line); padding:8px 14px; font-size:12.5px;}
+.lab-btn-ghost:hover{border-color:var(--lab-gold-soft); background:var(--cream);}
+
+@media(max-width:860px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+  .form-grid{grid-template-columns:1fr;}
+}
+@media(max-width:720px){
+  .nav-desktop{display:none;}
+  .nav-mobile{display:flex;}
+  .topbar{padding:12px 16px;}
+  .wrap{padding:18px 14px 20px;}
+}
+@media(max-width:520px){
+  .lab-pc-top{flex-direction:column;}
+  .lab-swatch{width:calc(50% - 5px);}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="mark">人</div>
+    <div>
+      <div class="title">爆款製造機</div>
+      <div class="sub">找到你的角色 · 產生給AI的創作提示詞</div>
+    </div>
+  </div>
+  <nav class="nav-desktop" id="navDesktop">
+    <button data-view="persona">人設定位</button>
+    <button data-view="ideas">靈感簿</button>
+    <button data-view="prompts">提示詞產生器</button>
+    <button data-view="advisory">經營建議</button>
+    <button data-view="backup">備份</button>
+  </nav>
+</div>
+
+<div class="wrap">
+
+<!-- ================= PERSONA ================= -->
+  <section class="view" id="view-persona">
+    <div class="page-head">
+      <h1>人設定位</h1>
+      <p>先搞懂自己是誰，內容才知道怎麼發。填完後前往「提示詞產生器」，複製提示詞交給你的AI工具創作。</p>
+    </div>
+
+    <div class="lab-page" id="labPage">
+
+      <div class="lab-progress-track" id="labProgressTrack"></div>
+
+      <div class="lab-step" data-step="1">
+        <div class="lab-step-head"><div class="lab-step-num">1</div><h3>基本資料</h3></div>
+        <p class="lab-step-desc">先寫下最基本的兩件事，之後隨時可以回來改。</p>
+        <label class="lab-field-label">暱稱／人設名稱</label>
+        <input type="text" id="pName" placeholder="例：小曼">
+        <label class="lab-field-label">一句話定位</label>
+        <input type="text" id="pPositioning" placeholder="例：幫助上班族（客群）尋找高CP值好物">
+      </div>
+
+      <div class="lab-step" data-step="2">
+        <div class="lab-step-head"><div class="lab-step-num">2</div><h3>特質清單 ＆ MBTI</h3></div>
+        <p class="lab-step-desc">點選跟你比較像的詞，不用每一類都選；也可以自訂輸入。</p>
+        <p class="lab-step-warn">⚠️ 不要選自己沒有的特質唷！不然很容易會有人設翻車的問題。</p>
+        <div class="lab-chip-group">
+          <div class="lab-chip-cat">溝通風格</div>
+          <div class="lab-chips" id="chipsTone"></div>
+        </div>
+        <div class="lab-chip-group">
+          <div class="lab-chip-cat">內容能量</div>
+          <div class="lab-chips" id="chipsEnergy"></div>
+        </div>
+        <div class="lab-chip-group">
+          <div class="lab-chip-cat">跟粉絲互動的方式</div>
+          <div class="lab-chips" id="chipsInteract"></div>
+        </div>
+        <div class="lab-chip-group">
+          <div class="lab-chip-cat">自訂特質</div>
+          <div class="lab-chips" id="chipsTraitsExtra"></div>
+        </div>
+        <div class="lab-chip-add">
+          <input type="text" id="inputTraitCustom" placeholder="自訂特質，按 Enter 新增">
+          <button class="lab-btn lab-btn-ghost" onclick="addCustomChip('traits','inputTraitCustom')">新增</button>
+        </div>
+
+        <div style="margin-top:26px; padding-top:22px; border-top:1px solid var(--lab-line);">
+          <div class="lab-step-head"><h3 style="font-size:16px;">MBTI 16型人格</h3></div>
+          <p class="lab-step-desc">8 題，每題兩個選項，選你比較接近的那個就好。測完會幫你抓出 MBTI 類型跟建議的內容語氣。</p>
+          <label class="lab-field-label">直接輸入 MBTI（或用下方測驗自動判斷）</label>
+          <select id="pMbti" class="lab-select">
+            <option value="">尚未選擇</option>
+            <option>INTJ</option><option>INTP</option><option>ENTJ</option><option>ENTP</option>
+            <option>INFJ</option><option>INFP</option><option>ENFJ</option><option>ENFP</option>
+            <option>ISTJ</option><option>ISFJ</option><option>ESTJ</option><option>ESFJ</option>
+            <option>ISTP</option><option>ISFP</option><option>ESTP</option><option>ESFP</option>
+          </select>
+          <button class="lab-quiz-toggle" id="labQuizToggle">開始測驗 →</button>
+          <div id="labQuizBox">
+            <div class="lab-quiz-nav">
+              <button class="lab-q-nav-btn" id="labQPrev" disabled>← 上一題</button>
+              <span class="lab-q-step-label" id="labQStepLabel">1 / 8</span>
+            </div>
+            <div class="lab-quiz-progress"><div class="lab-quiz-progress-bar" id="labQProgress"></div></div>
+            <div id="labQCards"></div>
+            <div class="lab-quiz-result" id="labQResult">
+              <div class="lab-badge" id="labQBadge">----</div>
+              <p id="labQDesc" style="margin:10px 0 0; color:var(--medium); font-size:13px;"></p>
+              <button class="lab-retake-btn" id="labQRetake">重新測驗 ↻</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lab-step" data-step="3">
+        <div class="lab-step-head"><div class="lab-step-num">3</div><h3>價值觀清單</h3></div>
+        <p class="lab-step-desc">你發文時最在乎、最捨不得妥協的是什麼？選 2-5 個就好，太多反而模糊焦點。</p>
+        <div class="lab-chips" id="chipsValues"></div>
+        <div class="lab-chip-add">
+          <input type="text" id="inputValueCustom" placeholder="自訂價值觀，按 Enter 新增">
+          <button class="lab-btn lab-btn-ghost" onclick="addCustomChip('values','inputValueCustom')">新增</button>
+        </div>
+      </div>
+
+      <div class="lab-step" data-step="4">
+        <div class="lab-step-head"><div class="lab-step-num">4</div><h3>主題內容分類標籤</h3></div>
+        <p class="lab-step-desc">可複選，會用來安排每一批內容計畫的主題角度，也決定生成腳本時套用哪一套公式。如果選的是「星座」這類大分類，記得用下方自訂欄位補上具體項目（例如「雙子座」），公式才有明確主題可以代入。</p>
+        <div class="lab-chips" id="chipsNiche"></div>
+        <div class="lab-chip-add">
+          <input type="text" id="inputNicheCustom" placeholder="自訂主題，按 Enter 新增，例：雙子座">
+          <button class="lab-btn lab-btn-ghost" onclick="addCustomChip('niche','inputNicheCustom')">新增</button>
+        </div>
+        <div class="lab-chip-group" style="margin-top:16px;">
+          <div class="lab-chip-cat">內容視角（僅影響星座／兩性關係／心靈成長這類人物型公式）</div>
+          <div class="lab-chips" id="chipsPov"></div>
+        </div>
+        <div class="lab-chip-group" style="margin-top:16px;">
+          <div class="lab-chip-cat">帳號類型（僅影響美業／服務類標籤，例如美甲、霧眉、按摩、醫美…）</div>
+          <div class="lab-chips" id="chipsAccountType"></div>
+        </div>
+      </div>
+
+      <div class="lab-step" data-step="5">
+        <div class="lab-step-head"><div class="lab-step-num">5</div><h3>優點，還有缺點</h3></div>
+        <p class="lab-step-desc">缺點也留下來——點選之後，會幫你翻譯成可以拿來發的內容切角。</p>
+        <div class="lab-chip-group">
+          <div class="lab-chip-cat">我的優點</div>
+          <div class="lab-chips" id="chipsStrength"></div>
+          <div class="lab-chip-add">
+            <input type="text" id="inputProCustom" placeholder="自訂優點，按 Enter 新增">
+            <button class="lab-btn lab-btn-ghost" onclick="addCustomChip('pros','inputProCustom')">新增</button>
+          </div>
+        </div>
+        <div class="lab-chip-group">
+          <div class="lab-chip-cat">我的缺點</div>
+          <div class="lab-chips" id="chipsWeakness"></div>
+          <div class="lab-chip-add">
+            <input type="text" id="inputConCustom" placeholder="自訂缺點，按 Enter 新增">
+            <button class="lab-btn lab-btn-ghost" onclick="addCustomChip('cons','inputConCustom')">新增</button>
+          </div>
+          <div class="lab-reframe" id="labReframe"></div>
+        </div>
+      </div>
+
+      <div class="lab-step" data-step="6">
+        <div class="lab-step-head"><div class="lab-step-num">6</div><h3>影片類型偏好</h3></div>
+        <p class="lab-step-desc">可複選，將作為自動生成腳本與批次生成的類型輪替依據。</p>
+        <div class="lab-chips" id="videoTypeChips"></div>
+      </div>
+
+      <div class="lab-step" data-step="7">
+        <div class="lab-step-head"><div class="lab-step-num">7</div><h3>顏色風格定位</h3></div>
+        <p class="lab-step-desc">選一個最貼近你想給人的感覺，下面的人設卡會跟著變色。</p>
+        <div class="lab-swatches" id="labSwatchBox"></div>
+      </div>
+
+      <div class="lab-step" data-step="8" style="border-top:none; margin-top:0; padding-top:0;">
+        <div class="lab-step-head"><div class="lab-step-num">8</div><h3>確認人設</h3></div>
+        <p class="lab-step-desc">最後檢查一下，這就是接下來提示詞裡會帶入的人設。沒問題就按「儲存人設」。</p>
+
+        <div class="lab-card-outer" style="margin-top:20px;">
+          <div class="lab-persona-card" id="labPersonaCard">
+            <div class="lab-pc-top">
+              <div>
+                <div class="lab-pc-eyebrow" id="labPcTheme">Content Persona Card</div>
+                <div class="lab-pc-name" id="labPcName">你的暱稱</div>
+              </div>
+              <div class="lab-pc-mbti" id="labPcMbti">????</div>
+            </div>
+            <div class="lab-pc-line"><b>定位：</b><span id="labPcPositioning">還沒填寫</span></div>
+            <div class="lab-pc-section-title">語氣與互動</div>
+            <div class="lab-pc-tags" id="labPcTagsTone"></div>
+            <div class="lab-pc-section-title">價值觀</div>
+            <div class="lab-pc-tags" id="labPcTagsValues"></div>
+            <div class="lab-pc-section-title">主題內容</div>
+            <div class="lab-pc-tags" id="labPcTagsNiche"></div>
+            <div class="lab-pc-section-title">優點／缺點</div>
+            <div class="lab-pc-tags" id="labPcTagsSW"></div>
+          </div>
+        </div>
+
+        <div class="lab-export-box">
+          <div class="lab-field-label" style="margin-bottom:8px;">整理成文字（可另外複製保存或分享）</div>
+          <pre id="labExportText" style="margin:0;"></pre>
+          <button class="lab-copy-btn" id="labCopyBtn">複製文字</button>
+          <span class="lab-copy-msg" id="labCopyMsg">已複製 ✓</span>
+        </div>
+
+        <div class="lab-actions">
+          <button class="lab-btn lab-btn-primary" id="btnSavePersona">儲存人設</button>
+          <button class="lab-btn lab-btn-ghost" id="btnResetPersona" style="color:#e0a8a0;">重新設定人設</button>
+        </div>
+        <div style="margin-top:14px;">
+          <button class="lab-btn lab-btn-ghost" onclick="goTo('prompts')">儲存後，前往提示詞產生器 →</button>
+        </div>
+      </div>
+
+      <div class="lab-wizard-nav">
+        <button class="lab-btn lab-btn-ghost" id="labWizardPrev">← 上一步</button>
+        <span class="lab-wizard-progress" id="labWizardProgress">步驟 1 / 8</span>
+        <button class="lab-btn lab-btn-primary" id="labWizardNext">下一步 →</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= IDEAS (靈感簿) ================= -->
+  <section class="view" id="view-ideas">
+    <div class="page-head">
+      <h1>靈感簿</h1>
+      <p>看到喜歡的留言、貼文、短影片，隨手貼上來。產生提示詞時會整包附上，讓AI自己判斷怎麼運用這些真實素材。</p>
+    </div>
+
+    <div class="section-block">
+      <h2>新增一則靈感</h2>
+      <div class="form-grid">
+        <div class="field full">
+          <label>內容</label>
+          <textarea id="ideaContent" rows="3" placeholder="貼上你看到的留言、貼文文字，或描述那支短影片在講什麼"></textarea>
+        </div>
+        <div class="field">
+          <label>來源類型</label>
+          <select id="ideaType">
+            <option>留言</option>
+            <option>貼文</option>
+            <option>短影片</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>連結（選填）</label>
+          <input type="text" id="ideaLink" placeholder="https://...">
+        </div>
+        <div class="field full">
+          <label>適用類型（選填）</label>
+          <div class="hint" style="margin-bottom:6px;">不選代表任何類型的提示詞都會用到；選了就只有對應類型才會帶進提示詞，避免不相關的靈感互相干擾。</div>
+          <select id="ideaCategory">
+            <option value="">不限（任何類型都會用到）</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btnAddIdea">加入靈感簿</button>
+      </div>
+    </div>
+
+    <div id="ideasList" class="content-list"></div>
+  </section>
+
+    <!-- ================= PROMPTS (提示詞產生器) ================= -->
+  <section class="view" id="view-prompts">
+    <div class="page-head">
+      <h1>提示詞產生器</h1>
+      <p>這個工具不會自動生成腳本，而是幫你把人設整理成清楚的提示詞。複製後貼給你自己的 AI 工具（ChatGPT、Claude…），由 AI 完成實際的腳本創作，內容品質會好很多。</p>
+    </div>
+
+    <div class="section-block">
+      <h2>選擇內容類型</h2>
+      <p class="hint" style="margin-bottom:10px;">依你在「人設定位」頁選的主題標籤自動列出，選一個要生成提示詞的類型。</p>
+      <select id="promptCategorySelect" class="lab-select" style="background:var(--bg); color:var(--dark); border-color:rgba(55,53,47,0.16); margin-bottom:0;"></select>
+    </div>
+
+    <div class="section-block">
+      <h2>① 還沒有靈感，想先找主題</h2>
+      <p class="hint" style="margin-bottom:12px;">適合開新對話時使用。提示詞會附上完整人設，請 AI 一次幫你發想多個選題，並直接生成腳本。</p>
+      <div class="field" style="max-width:160px; margin-bottom:12px;">
+        <label>要幾篇？</label>
+        <input type="text" id="promptCountA" value="5">
+      </div>
+      <button class="btn btn-primary" id="btnPromptA">複製提示詞到ChatGPT</button>
+    </div>
+
+    <div class="section-block">
+      <h2>② 已經有想法，指定主題</h2>
+      <p class="hint" style="margin-bottom:12px;">適合開新對話時使用。提示詞會附上完整人設，針對你指定的主題生成一篇腳本。</p>
+      <div class="field" style="margin-bottom:12px;">
+        <label>你想拍什麼？</label>
+        <input type="text" id="promptTopicInput" placeholder="例如你要開箱的物品或是你想討論的話題">
+      </div>
+      <button class="btn btn-primary" id="btnPromptB">複製提示詞到ChatGPT</button>
+    </div>
+
+    <div class="section-block">
+      <h2>③ 同一個對話裡，繼續生成更多</h2>
+      <p class="hint" style="margin-bottom:12px; color:#b3554a;">⚠️ 這個提示詞只在「同一個對話串」裡有效——AI 需要記得你剛剛用①或②設定過的人設，才能接得上。如果你開了新對話，請改用①或②。</p>
+      <div class="field" style="max-width:160px; margin-bottom:12px;">
+        <label>要幾篇？</label>
+        <input type="text" id="promptCountC" value="5">
+      </div>
+      <button class="btn btn-primary" id="btnPromptC">複製提示詞到ChatGPT</button>
+    </div>
+
+    <div class="section-block">
+      <h2>④ 優化既有腳本</h2>
+      <p class="hint" style="margin-bottom:12px;">已經有一篇腳本（AI生成的或你自己寫的），想用「六大選題評估標準」檢查優化。複製這段提示詞後，把你的腳本貼在提示詞最後面，一起送給 AI；這個工具本身不會幫你優化，是交給 AI 處理。</p>
+      <button class="btn btn-primary" id="btnPromptD">複製提示詞到ChatGPT</button>
+    </div>
+  </section>
+
+  <!-- ================= ADVISORY (經營建議) ================= -->
+  <section class="view" id="view-advisory">
+    <div class="page-head">
+      <h1>經營建議</h1>
+      <p>根據你的人設設定，自動檢查命名與定位有沒有踩到常見地雷，並給你該領域的內容支柱建議。</p>
+    </div>
+
+    <div class="section-block">
+      <h2>命名健檢</h2>
+      <div id="namingCheckResult"></div>
+    </div>
+
+    <div class="section-block">
+      <h2>內容支柱建議</h2>
+      <div id="pillarAdviceResult"></div>
+    </div>
+  </section>
+
+<!-- ================= BACKUP ================= -->
+  <section class="view" id="view-backup">
+    <div class="page-head">
+      <h1>備份與還原</h1>
+      <p>資料儲存在瀏覽器本機（localStorage）。換裝置或清除瀏覽器資料前，請記得先匯出備份。</p>
+    </div>
+
+    <div class="section-block">
+      <h2>匯出備份</h2>
+      <p class="hint" style="margin-bottom:12px;">將你的人設資料與靈感簿匯出成一個 JSON 檔案，可保存在雲端硬碟或傳送到其他裝置。</p>
+      <button class="btn btn-primary" id="btnExport">下載備份檔案</button>
+    </div>
+
+    <div class="section-block">
+      <h2>匯入備份</h2>
+      <p class="hint" style="margin-bottom:12px;">選擇先前匯出的 JSON 檔案，將會覆蓋目前這個瀏覽器內的資料。</p>
+      <input type="file" id="importFile" accept="application/json" style="margin-bottom:10px;">
+      <button class="btn btn-secondary" id="btnImport">匯入並覆蓋</button>
+    </div>
+
+    <div class="section-block">
+      <h2>清空資料</h2>
+      <p class="hint" style="margin-bottom:12px;">將清除此裝置上的人設與靈感簿資料，此動作無法復原。</p>
+      <button class="btn btn-danger" id="btnReset">清空所有資料</button>
+    </div>
+  </section>
+
+</div>
+
+<nav class="nav-mobile" id="navMobile">
+  <button data-view="persona"><span class="ic">🎭</span>人設</button>
+  <button data-view="ideas"><span class="ic">💡</span>靈感簿</button>
+  <button data-view="prompts"><span class="ic">✦</span>提示詞</button>
+  <button data-view="advisory"><span class="ic">📈</span>建議</button>
+  <button data-view="backup"><span class="ic">💾</span>備份</button>
+</nav>
+
+<div id="toast"></div>
+
+<div class="modal-bg" id="confirmModal">
+  <div class="modal">
+    <h3 id="confirmTitle">確定要執行嗎？</h3>
+    <p id="confirmDesc"></p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="confirmCancel">取消</button>
+      <button class="btn btn-danger" id="confirmOk">確定</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   STATE & STORAGE
+========================================================= */
+const STORAGE_KEY = 'persona_planner_v2';
+const VIDEO_TYPES = ['居家口播','後置配音','故事型','藏鏡人'];
+
+let state = loadState();
+
+function defaultState(){
+  return {
+    persona: {
+      name:'', topic:'', positioning:'', pov:'third', accountType:'persona',
+      pros:[], cons:[], traits:[], values:[], niche:[],
+      mbti:'', videoTypes:[], themeName:''
+    },
+    ideas: []
+  };
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return migrateFromV1() || defaultState();
+    const parsed = JSON.parse(raw);
+    return Object.assign(defaultState(), parsed, {
+      persona: Object.assign(defaultState().persona, parsed.persona||{}),
+      ideas: parsed.ideas || []
+    });
+  }catch(e){
+    console.error('讀取資料失敗', e);
+    return defaultState();
+  }
+}
+
+// 舊版（含內容清單／腳本生成）留下的資料，搬過來時只保留人設和靈感簿
+function migrateFromV1(){
+  try{
+    const raw = localStorage.getItem('persona_planner_v1');
+    if(!raw) return null;
+    const parsed = JSON.parse(raw);
+    const merged = Object.assign(defaultState(), {
+      persona: Object.assign(defaultState().persona, parsed.persona||{}),
+      ideas: parsed.ideas || []
+    });
+    if(parsed.persona && parsed.persona.trendingMaterial){
+      const lines = parsed.persona.trendingMaterial.split('\n').map(s=>s.trim()).filter(Boolean);
+      lines.forEach(line=>{
+        merged.ideas.push({id: uid(), content: line, sourceType:'其他', link:'', createdAt: Date.now()});
+      });
+      delete merged.persona.trendingMaterial;
+    }
+    return merged;
+  }catch(e){
+    return null;
+  }
+}
+
+function saveState(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function uid(){
+  return 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+}
+
+function esc(s){
+  return (s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+const views = ['persona','ideas','prompts','advisory','backup'];
+
+function goTo(view, opts){
+  opts = opts || {};
+  views.forEach(v=>{
+    document.getElementById('view-'+v).classList.toggle('active', v===view);
+  });
+  document.querySelectorAll('#navDesktop button, #navMobile button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.view===view);
+  });
+  if(view==='persona') renderPersonaForm();
+  if(view==='ideas') renderIdeas();
+  if(view==='prompts') renderPromptsPage();
+  if(view==='advisory') renderAdvisory();
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+document.querySelectorAll('#navDesktop button, #navMobile button').forEach(btn=>{
+  btn.addEventListener('click', ()=>goTo(btn.dataset.view));
+});
+
+/* =========================================================
+   TOAST
+========================================================= */
+let toastTimer;
+function toast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+/* =========================================================
+   CONFIRM MODAL
+========================================================= */
+function confirmAction(title, desc, onOk){
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmDesc').textContent = desc;
+  const bg = document.getElementById('confirmModal');
+  bg.classList.add('show');
+  const okBtn = document.getElementById('confirmOk');
+  const cancelBtn = document.getElementById('confirmCancel');
+  const cleanup = ()=>{ bg.classList.remove('show'); okBtn.onclick=null; cancelBtn.onclick=null; };
+  okBtn.onclick = ()=>{ onOk(); cleanup(); };
+  cancelBtn.onclick = cleanup;
+}
+
+function fallbackCopy(text, done){
+  const ta = document.createElement('textarea');
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); done(); }catch(e){}
+  document.body.removeChild(ta);
+}
+function copyPrompt(text){
+  const done = ()=>toast('提示詞已複製，貼給你的AI工具吧');
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text, done));
+  }else{
+    fallbackCopy(text, done);
+  }
+}
+
+/* =========================================================
+   PERSONA LAB — chip banks, reframe, mbti label, color themes
+========================================================= */
+const LAB_CHIPS = {
+  tone: ["直接","溫暖","幽默","犀利","碎念系","療癒系","理性","浪漫","接地氣","專業感"],
+  energy: ["元氣滿滿","安靜穩定","戲劇化","隨性慢活","衝勁十足","細膩敏感"],
+  interact: ["很愛回留言","喜歡開直播","習慣寫長文","擅長限動互動","喜歡辦活動","習慣私訊聊天"],
+  values: ["真誠","自由","成長","家庭優先","健康至上","美感生活","效率至上","社群連結","獨立自主","簡單生活","勇於嘗試","感恩知足","友善環境","專業堅持","樂觀正向","誠實表達"],
+  niche: ["美妝","吃播","口播","開箱","探店","星座","穿搭","健身","理財","育兒","寵物","旅遊","心靈成長","職場觀察","居家生活","療癒Vlog","美食料理","兩性關係","美甲","美睫","霧眉","霧唇","紋唇","刺青","按摩","做臉","美髮","醫美","居家料理","彩妝教學","彩妝開箱","餐廳探店","咖啡廳探店"],
+  strength: ["有同理心","觀察力強","講話有說服力","很會說故事","邏輯清楚","堅持力強","真誠不做作","反應快","有幽默感","很有行動力","學習力強","很細心","很有耐心","抗壓性高","很會安慰人","創意豐富","很懂得傾聽","執行力強","很會炒氣氛","有領導力","很會整理歸納","很會拍照構圖"],
+  weakness: ["太貪吃","三分鐘熱度","很懶惰","容易焦慮","講話很直","很邊緣不擅社交","很愛抱怨","記性差丟三落四","容易自我懷疑","外食族不會做飯","作息不正常愛熬夜","情緒化愛哭","拖延症","完美主義","容易緊張","不擅長拒絕別人","花錢很衝動","容易分心","很怕生","愛比較","想太多睡不著","容易沒耐心","社恐怕鏡頭","容易emo"]
+};
+
+const REFRAME = {
+  "太貪吃":"你就是最容易被食物打敗的人，你的成功特別有共鳴 → 適合做「素人實測」角度的內容。",
+  "三分鐘熱度":"誠實分享「這次為什麼撐得下去」，帶出降低意志力門檻的價值。",
+  "很懶惰":"主打「躺著也能做到」「不費力派」角度，找到跟你一樣怕麻煩的受眾。",
+  "容易焦慮":"分享心理轉折過程，讓同樣焦慮的粉絲覺得被理解。",
+  "講話很直":"用「不包裝的真實心得」角度，建立信任感——你講真話。",
+  "很邊緣不擅社交":"用「一個人也要對自己好」角度，吸引同樣內向的粉絲。",
+  "很愛抱怨":"把抱怨轉成「痛點清單」，正好帶出你解決了哪些煩惱。",
+  "記性差丟三落四":"用「懶人包／傻瓜式步驟」角度，吸引怕麻煩的受眾。",
+  "容易自我懷疑":"分享「重建自信」的心路歷程，特別打動同樣沒自信的人。",
+  "外食族不會做飯":"用「外食族也能做到」角度，精準打到同溫層痛點。",
+  "作息不正常愛熬夜":"用「夜貓子的日常法」角度，找到同樣作息的受眾。",
+  "情緒化愛哭":"用真情流露的方式紀錄心情轉折，增加真實感與共鳴。",
+  "拖延症":"分享「deadline前才爆發」的真實日常，跟一樣拖延的人打成一片。",
+  "完美主義":"用「反覆調整到滿意為止」的過程當內容，展現對品質的堅持。",
+  "容易緊張":"分享「上鏡前的小劇場」，讓一樣會緊張的粉絲覺得被看見。",
+  "不擅長拒絕別人":"聊「怎麼練習說不」的心路歷程，吸引同樣不會拒絕的人。",
+  "花錢很衝動":"用「剁手日記」角度分享消費心得，帶出怎麼開始理性選擇。",
+  "容易分心":"用「三分鐘做完」角度包裝內容，抓住同樣沒耐心滑手機的受眾。",
+  "很怕生":"用「慢熱但真心」角度經營，吸引喜歡細水長流關係的粉絲。",
+  "愛比較":"誠實聊「怎麼開始只跟自己比」，特別打動同樣愛比較的人。",
+  "想太多睡不著":"分享「深夜腦內小劇場」，用失眠時光包裝日常內容。",
+  "容易沒耐心":"用「懶人包、快速版」角度包裝內容，吸引一樣沒耐心的受眾。",
+  "社恐怕鏡頭":"用「只聞其聲不見其人」或文字系角度切入，一樣能建立信任感。",
+  "容易emo":"把情緒紀錄下來，變成最真實的心情日記型內容，吸引情感共鳴的粉絲。"
+};
+
+const MBTI_RESULT = {
+  ISTJ:["踏實顧問型","語氣穩重可靠，適合用具體步驟與實例建立信任。"],
+  ISFJ:["溫柔陪伴型","語氣溫暖細心，適合日常陪伴式分享，讓粉絲感覺被照顧。"],
+  INFJ:["深度共感型","語氣真誠有深度，適合寫長文故事、挖掘內容背後的意義。"],
+  INTJ:["理性策略型","語氣冷靜有主見，適合用邏輯拆解「為什麼這樣做」。"],
+  ISTP:["實測達人型","語氣直接俐落，適合開箱實測、用行動證明效果。"],
+  ISFP:["感性生活型","語氣柔軟有畫面感，適合用生活情境和感受打動人。"],
+  INFP:["溫柔理想型","語氣細膩真摯，適合寫下最脆弱真實的心路歷程。"],
+  INTP:["好奇拆解型","語氣理性又帶點反骨，適合深挖邏輯、破解迷思。"],
+  ESTJ:["領導帶動型","語氣有魄力，適合開直播帶著大家一起行動。"],
+  ESFJ:["熱心暖場型","語氣親切熱絡，適合經營留言互動、辦粉絲活動。"],
+  ENFJ:["鼓舞激勵型","語氣充滿感染力，適合分享蛻變故事、鼓勵粉絲跨出第一步。"],
+  ENTJ:["目標衝刺型","語氣自信果決，適合用「結果導向」的內容展現成效。"],
+  ESTP:["活力行動型","語氣爽快帶勁，適合限動即時分享、當下反應最真實。"],
+  ESFP:["開心分享型","語氣活潑歡樂，適合把日常變成有趣小劇場。"],
+  ENFP:["熱情故事型","語氣豐富有畫面，適合天馬行空地把內容融進生活故事。"],
+  ENTP:["犀利觀點型","語氣機智敢說，適合用反差或吐槽角度切入話題。"]
+};
+
+const LAB_QUIZ = [
+  {axis:'EI', text:'想分享「今天發生的小事」，你會：', opts:[['直接開直播用講的，跟粉絲即時聊','E'],['打字整理好思緒再發文','I']]},
+  {axis:'EI', text:'很多留言湧進來的時候，你通常：', opts:[['很興奮想每則都回、越聊越有勁','E'],['覺得有點累，需要先充個電再回','I']]},
+  {axis:'SN', text:'分享經驗時，你更習慣：', opts:[['講清楚步驟、用法、實際數字效果','S'],['講這件事帶給你的感受跟聯想','N']]},
+  {axis:'SN', text:'想內容題材時，你通常：', opts:[['從日常實際發生的小事找靈感','S'],['常常突然冒出抽象的比喻或畫面','N']]},
+  {axis:'TF', text:'粉絲留言說「我也曾經這樣」，你會先：', opts:[['分析狀況、告訴她可以怎麼做','T'],['先同理她的心情，讓她感覺被理解','F']]},
+  {axis:'TF', text:'決定要不要推薦一件事，你在意的是：', opts:[['有沒有邏輯講得通、行得通','T'],['這件事有沒有真的觸動到你','F']]},
+  {axis:'JP', text:'你的發文習慣比較像：', opts:[['提前規劃好這週要發什麼主題','J'],['看當下心情，靈感來了就發','P']]},
+  {axis:'JP', text:'面對這份人設檔案，你的反應是：', opts:[['想把每一欄都填好填滿才安心','J'],['慢慢填、想到什麼寫什麼就好','P']]}
+];
+
+const COLOR_THEMES = [
+  {name:'奶茶暖棕', vibe:'溫暖親切、日常感', gold:'#C99A3D', goldSoft:'#E7C877', rose:'#B85C4E'},
+  {name:'深夜藍調', vibe:'沉靜神秘、有深度', gold:'#6F8FC9', goldSoft:'#A8BEE0', rose:'#4A5FA5'},
+  {name:'珊瑚少女', vibe:'甜美活潑、少女感', gold:'#E38A8A', goldSoft:'#F2B6B6', rose:'#C9607A'},
+  {name:'森林綠意', vibe:'療癒自然、放鬆感', gold:'#7FA37A', goldSoft:'#AFCBA8', rose:'#55725A'},
+  {name:'霧感灰紫', vibe:'高雅質感、有故事', gold:'#9B8AC4', goldSoft:'#C4B8E0', rose:'#6C5B8C'},
+  {name:'活力橘紅', vibe:'熱情衝勁、行動派', gold:'#E0703A', goldSoft:'#F0A574', rose:'#C9432D'}
+];
+
+/* ---- chip rendering ---- */
+function renderLabChipsPresetOnly(containerId, list, field, variant){
+  const container = document.getElementById(containerId);
+  const arr = state.persona[field];
+  container.innerHTML = list.map(label=>{
+    const active = arr.includes(label);
+    return `<span class="lab-chip${variant?' '+variant:''}${active?' selected':''}" data-label="${esc(label)}">${esc(label)}</span>`;
+  }).join('');
+  container.querySelectorAll('.lab-chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const label = chip.dataset.label;
+      const idx = arr.indexOf(label);
+      if(idx>-1) arr.splice(idx,1); else arr.push(label);
+      saveState();
+      renderLabChipsPresetOnly(containerId, list, field, variant);
+      renderLabTraitsExtra();
+      updateLabCard();
+    });
+  });
+}
+
+function renderLabChipsSingle(containerId, list, field, variant){
+  const container = document.getElementById(containerId);
+  const arr = state.persona[field];
+  const presetHtml = list.map(label=>{
+    const active = arr.includes(label);
+    return `<span class="lab-chip${variant?' '+variant:''}${active?' selected':''}" data-type="preset" data-label="${esc(label)}">${esc(label)}</span>`;
+  }).join('');
+  const extra = arr.filter(v=>!list.includes(v));
+  const extraHtml = extra.map(v=>`<span class="lab-chip${variant?' '+variant:''} selected" data-type="custom" data-label="${esc(v)}">${esc(v)} ✕</span>`).join('');
+  container.innerHTML = presetHtml + extraHtml;
+  container.querySelectorAll('.lab-chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const label = chip.dataset.label;
+      const idx = arr.indexOf(label);
+      if(chip.dataset.type==='custom'){
+        if(idx>-1) arr.splice(idx,1);
+      } else {
+        if(idx>-1) arr.splice(idx,1); else arr.push(label);
+      }
+      saveState();
+      renderLabChipsSingle(containerId, list, field, variant);
+      if(field==='cons') updateReframe();
+      if(field==='niche') syncTopicFromNiche();
+      updateLabCard();
+    });
+  });
+}
+
+function renderLabTraitsExtra(){
+  const allPreset = [...LAB_CHIPS.tone, ...LAB_CHIPS.energy, ...LAB_CHIPS.interact];
+  const extras = state.persona.traits.filter(v=>!allPreset.includes(v));
+  const container = document.getElementById('chipsTraitsExtra');
+  if(!extras.length){
+    container.innerHTML = `<span style="font-size:12px;color:#7A7288;">（尚未新增）</span>`;
+    return;
+  }
+  container.innerHTML = extras.map(v=>`<span class="lab-chip selected" data-label="${esc(v)}">${esc(v)} ✕</span>`).join('');
+  container.querySelectorAll('.lab-chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const label = chip.dataset.label;
+      const idx = state.persona.traits.indexOf(label);
+      if(idx>-1) state.persona.traits.splice(idx,1);
+      saveState();
+      renderLabTraitsExtra();
+      updateLabCard();
+    });
+  });
+}
+
+function addCustomChip(field, inputId){
+  const input = document.getElementById(inputId);
+  const val = input.value.trim();
+  if(!val) return;
+  if(!state.persona[field].includes(val)) state.persona[field].push(val);
+  input.value = '';
+  saveState();
+  if(field==='niche') syncTopicFromNiche();
+  refreshPersonaChips();
+  updateLabCard();
+}
+
+const CUSTOM_INPUT_FIELD = {
+  inputTraitCustom:'traits', inputValueCustom:'values', inputProCustom:'pros', inputConCustom:'cons', inputNicheCustom:'niche'
+};
+Object.keys(CUSTOM_INPUT_FIELD).forEach(id=>{
+  document.getElementById(id).addEventListener('keydown', e=>{
+    if(e.key==='Enter'){ e.preventDefault(); addCustomChip(CUSTOM_INPUT_FIELD[id], id); }
+  });
+});
+
+// 「自媒體主題定位」欄位移除後，topic 改成自動從主題標籤推導：
+// 優先用自訂新增的標籤（例如「雙子座」），沒有的話退回第一個勾選的標籤；
+// 如果標籤還沒選任何東西，保留原本的值（例如舊資料裡用舊欄位存過的主題），不清空
+function syncTopicFromNiche(){
+  const niche = state.persona.niche || [];
+  const customEntry = niche.find(n => !LAB_CHIPS.niche.includes(n));
+  const derived = customEntry || niche[0];
+  if(derived) state.persona.topic = derived;
+}
+
+function updateReframe(){
+  const note = document.getElementById('labReframe');
+  const picked = state.persona.cons;
+  if(!picked.length){ note.classList.remove('show'); return; }
+  note.innerHTML = picked.map(w=>{
+    const tip = REFRAME[w] || '這個特質背後，可能就藏著一群跟你一樣的受眾——想想他們是誰。';
+    return `<b>${esc(w)}</b> → ${esc(tip)}`;
+  }).join('<br><br>');
+  note.classList.add('show');
+}
+
+function renderVideoTypeChips(){
+  const container = document.getElementById('videoTypeChips');
+  container.innerHTML = VIDEO_TYPES.map(t=>{
+    const active = state.persona.videoTypes.includes(t);
+    return `<span class="lab-chip${active?' selected':''}" data-t="${esc(t)}">${esc(t)}</span>`;
+  }).join('');
+  container.querySelectorAll('.lab-chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>toggleVideoType(chip.dataset.t));
+  });
+}
+function toggleVideoType(t){
+  const idx = state.persona.videoTypes.indexOf(t);
+  if(idx>-1) state.persona.videoTypes.splice(idx,1);
+  else state.persona.videoTypes.push(t);
+  saveState();
+  renderVideoTypeChips();
+}
+
+function refreshPersonaChips(){
+  renderLabChipsPresetOnly('chipsTone', LAB_CHIPS.tone, 'traits');
+  renderLabChipsPresetOnly('chipsEnergy', LAB_CHIPS.energy, 'traits');
+  renderLabChipsPresetOnly('chipsInteract', LAB_CHIPS.interact, 'traits');
+  renderLabTraitsExtra();
+  renderLabChipsSingle('chipsValues', LAB_CHIPS.values, 'values', 'sage');
+  renderLabChipsSingle('chipsNiche', LAB_CHIPS.niche, 'niche', 'sage');
+  renderLabChipsSingle('chipsStrength', LAB_CHIPS.strength, 'pros');
+  renderLabChipsSingle('chipsWeakness', LAB_CHIPS.weakness, 'cons', 'rose');
+  updateReframe();
+  renderVideoTypeChips();
+  renderLabSwatches();
+  renderPovChips();
+  renderAccountTypeChips();
+}
+
+const POV_OPTIONS = [
+  {id:'third', label:'第三人稱'},
+  {id:'first', label:'第一人稱'}
+];
+function renderPovChips(){
+  const container = document.getElementById('chipsPov');
+  const current = state.persona.pov || 'third';
+  container.innerHTML = POV_OPTIONS.map(o=>
+    `<span class="lab-chip${current===o.id?' selected':''}" data-pov="${o.id}">${esc(o.label)}</span>`
+  ).join('');
+  container.querySelectorAll('.lab-chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      state.persona.pov = chip.dataset.pov;
+      saveState();
+      renderPovChips();
+    });
+  });
+}
+
+const ACCOUNT_TYPE_OPTIONS = [
+  {id:'brand', label:'品牌／作品展示帳號'},
+  {id:'persona', label:'個人人設帳號'}
+];
+function renderAccountTypeChips(){
+  const container = document.getElementById('chipsAccountType');
+  const current = state.persona.accountType || 'persona';
+  container.innerHTML = ACCOUNT_TYPE_OPTIONS.map(o=>
+    `<span class="lab-chip${current===o.id?' selected':''}" data-t="${o.id}">${esc(o.label)}</span>`
+  ).join('');
+  container.querySelectorAll('.lab-chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      state.persona.accountType = chip.dataset.t;
+      saveState();
+      renderAccountTypeChips();
+    });
+  });
+}
+
+/* ---- color theme swatches ---- */
+function renderLabSwatches(){
+  const box = document.getElementById('labSwatchBox');
+  box.innerHTML = COLOR_THEMES.map(t=>{
+    const active = state.persona.themeName === t.name;
+    return `<div class="lab-swatch${active?' active':''}" data-name="${esc(t.name)}">
+      <div class="lab-swatch-dots">
+        <div class="lab-swatch-dot" style="background:${t.gold}"></div>
+        <div class="lab-swatch-dot" style="background:${t.rose}"></div>
+        <div class="lab-swatch-dot" style="background:${t.goldSoft}"></div>
+      </div>
+      <div class="lab-swatch-name">${esc(t.name)}</div>
+      <div class="lab-swatch-vibe">${esc(t.vibe)}</div>
+    </div>`;
+  }).join('');
+  box.querySelectorAll('.lab-swatch').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      state.persona.themeName = el.dataset.name;
+      saveState();
+      renderLabSwatches();
+      applyLabTheme();
+      updateLabCard();
+    });
+  });
+}
+function applyLabTheme(){
+  const t = COLOR_THEMES.find(t=>t.name===state.persona.themeName) || COLOR_THEMES[0];
+  const page = document.getElementById('labPage');
+  page.style.setProperty('--lab-gold', t.gold);
+  page.style.setProperty('--lab-gold-soft', t.goldSoft);
+  page.style.setProperty('--lab-rose', t.rose);
+}
+
+/* ---- MBTI quiz (paginated) ---- */
+let labCurrentQ = 0;
+let labAnswers = new Array(LAB_QUIZ.length).fill(null);
+
+function buildLabQuiz(){
+  const qCardsEl = document.getElementById('labQCards');
+  qCardsEl.innerHTML = '';
+  LAB_QUIZ.forEach((q,i)=>{
+    const card = document.createElement('div');
+    card.className = 'lab-q-card' + (i===0 ? ' active':'');
+    card.dataset.index = i;
+    card.innerHTML = `<div class="lab-q-text">${i+1}. ${esc(q.text)}</div>` +
+      q.opts.map(o=>`<button class="lab-q-opt" data-letter="${o[1]}">${esc(o[0])}</button>`).join('');
+    qCardsEl.appendChild(card);
+  });
+  qCardsEl.querySelectorAll('.lab-q-opt').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const card = btn.closest('.lab-q-card');
+      const idx = parseInt(card.dataset.index);
+      labAnswers[idx] = btn.dataset.letter;
+      card.querySelectorAll('.lab-q-opt').forEach(b=>b.classList.remove('chosen'));
+      btn.classList.add('chosen');
+      setTimeout(()=>{
+        showLabQuizState(idx < LAB_QUIZ.length - 1 ? idx + 1 : LAB_QUIZ.length);
+      }, 150);
+    });
+  });
+}
+
+function showLabQuizState(i){
+  labCurrentQ = i;
+  const qCardsEl = document.getElementById('labQCards');
+  const qResultEl = document.getElementById('labQResult');
+  const qPrevBtn = document.getElementById('labQPrev');
+  const qStepLabel = document.getElementById('labQStepLabel');
+  if(i >= LAB_QUIZ.length){
+    qCardsEl.querySelectorAll('.lab-q-card').forEach(c=>c.classList.remove('active'));
+    document.getElementById('labQProgress').style.width = '100%';
+    qStepLabel.textContent = '完成';
+    qPrevBtn.disabled = false;
+    computeLabQuizResult();
+    return;
+  }
+  qResultEl.classList.remove('show');
+  qCardsEl.querySelectorAll('.lab-q-card').forEach(c=>c.classList.remove('active'));
+  const card = qCardsEl.children[i];
+  card.classList.add('active');
+  document.getElementById('labQProgress').style.width = (i/LAB_QUIZ.length*100)+'%';
+  qStepLabel.textContent = (i+1) + ' / ' + LAB_QUIZ.length;
+  qPrevBtn.disabled = (i===0);
+  card.querySelectorAll('.lab-q-opt').forEach(b=>{
+    b.classList.toggle('chosen', labAnswers[i] === b.dataset.letter);
+  });
+}
+
+function labPickMajor(letters, a, b){
+  const countA = letters.filter(l=>l===a).length;
+  return countA >= letters.length/2 ? a : b;
+}
+
+function computeLabQuizResult(){
+  const axisLetters = {EI:[], SN:[], TF:[], JP:[]};
+  LAB_QUIZ.forEach((q,i)=>{ if(labAnswers[i]) axisLetters[q.axis].push(labAnswers[i]); });
+  const type =
+    labPickMajor(axisLetters.EI,'E','I') +
+    labPickMajor(axisLetters.SN,'S','N') +
+    labPickMajor(axisLetters.TF,'T','F') +
+    labPickMajor(axisLetters.JP,'J','P');
+  state.persona.mbti = type;
+  document.getElementById('pMbti').value = type;
+  saveState();
+  const [label, desc] = MBTI_RESULT[type];
+  document.getElementById('labQBadge').textContent = type + ' · ' + label;
+  document.getElementById('labQDesc').textContent = desc;
+  document.getElementById('labQResult').classList.add('show');
+  updateLabCard();
+}
+
+document.getElementById('labQPrev').addEventListener('click', ()=>{
+  if(labCurrentQ > 0) showLabQuizState(labCurrentQ - 1);
+});
+document.getElementById('labQRetake').addEventListener('click', ()=>{
+  labAnswers = new Array(LAB_QUIZ.length).fill(null);
+  document.querySelectorAll('#labQCards .lab-q-opt').forEach(b=>b.classList.remove('chosen'));
+  document.getElementById('labQResult').classList.remove('show');
+  showLabQuizState(0);
+});
+document.getElementById('labQuizToggle').addEventListener('click', ()=>{
+  const box = document.getElementById('labQuizBox');
+  const showing = box.style.display === 'block';
+  box.style.display = showing ? 'none' : 'block';
+  document.getElementById('labQuizToggle').textContent = showing ? '開始測驗 →' : '收起測驗 ↑';
+});
+
+/* ---- persona card preview + export text ---- */
+function updateLabCard(){
+  const p = state.persona;
+  document.getElementById('labPcName').textContent = p.name || '你的暱稱';
+  document.getElementById('labPcPositioning').textContent = p.positioning || '還沒填寫';
+  document.getElementById('labPcMbti').textContent = p.mbti || '????';
+  const theme = COLOR_THEMES.find(t=>t.name===p.themeName);
+  document.getElementById('labPcTheme').textContent = theme ? theme.name + ' · ' + theme.vibe : 'Content Persona Card';
+
+  const toneEl = document.getElementById('labPcTagsTone');
+  toneEl.innerHTML = p.traits.map(t=>`<span class="lab-pc-tag">${esc(t)}</span>`).join('') || `<span class="lab-pc-tag plain">尚未選擇</span>`;
+
+  const valEl = document.getElementById('labPcTagsValues');
+  valEl.innerHTML = p.values.map(t=>`<span class="lab-pc-tag sage">${esc(t)}</span>`).join('') || `<span class="lab-pc-tag plain">尚未選擇</span>`;
+
+  const nicheEl = document.getElementById('labPcTagsNiche');
+  nicheEl.innerHTML = p.niche.map(t=>`<span class="lab-pc-tag plain">${esc(t)}</span>`).join('') || `<span class="lab-pc-tag plain">尚未選擇</span>`;
+
+  const swEl = document.getElementById('labPcTagsSW');
+  let swHtml = p.pros.map(t=>`<span class="lab-pc-tag">💪 ${esc(t)}</span>`).join('');
+  swHtml += p.cons.map(t=>`<span class="lab-pc-tag rose">🌱 ${esc(t)}</span>`).join('');
+  swEl.innerHTML = swHtml || `<span class="lab-pc-tag plain">尚未選擇</span>`;
+
+  updateLabExportText();
+}
+
+function updateLabExportText(){
+  const p = state.persona;
+  const lines = [];
+  lines.push(`暱稱／人設名稱：${p.name || '（未填寫）'}`);
+  lines.push(`一句話定位：${p.positioning || '（未填寫）'}`);
+  lines.push(`MBTI／內容原型：${p.mbti ? p.mbti+'　'+(MBTI_RESULT[p.mbti]?MBTI_RESULT[p.mbti][0]:'') : '（尚未測驗）'}`);
+  if(p.mbti && MBTI_RESULT[p.mbti]) lines.push(`建議語氣：${MBTI_RESULT[p.mbti][1]}`);
+  lines.push(`顏色風格定位：${p.themeName || '（尚未選擇）'}`);
+  lines.push(`特質關鍵字：${p.traits.join('、') || '（未選擇）'}`);
+  lines.push(`價值觀：${p.values.join('、') || '（未選擇）'}`);
+  lines.push(`主題內容定位：${p.topic || '（未填寫）'}` + (p.niche.length ? ('　標籤：'+p.niche.join('、')) : ''));
+  lines.push(`優點：${p.pros.join('、') || '（未選擇）'}`);
+  lines.push('');
+  lines.push('缺點與內容切角：');
+  if(!p.cons.length){
+    lines.push('（尚未選擇）');
+  }else{
+    p.cons.forEach(w=>{ lines.push(`・${w} → ${REFRAME[w] || '想想這個特質背後，藏著哪一群跟你一樣的受眾。'}`); });
+  }
+  document.getElementById('labExportText').textContent = lines.join('\n');
+}
+
+function fallbackCopy(text, done){
+  const ta = document.createElement('textarea');
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); done(); }catch(e){}
+  document.body.removeChild(ta);
+}
+document.getElementById('labCopyBtn').addEventListener('click', ()=>{
+  const text = document.getElementById('labExportText').textContent;
+  const msg = document.getElementById('labCopyMsg');
+  const done = ()=>{ msg.classList.add('show'); setTimeout(()=>msg.classList.remove('show'), 1800); };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text, done));
+  } else {
+    fallbackCopy(text, done);
+  }
+});
+
+/* ---- persona basic inputs (live update) ---- */
+document.getElementById('pName').addEventListener('input', e=>{ state.persona.name = e.target.value; saveState(); updateLabCard(); });
+document.getElementById('pPositioning').addEventListener('input', e=>{ state.persona.positioning = e.target.value; saveState(); updateLabCard(); });
+document.getElementById('pMbti').addEventListener('change', ()=>{
+  state.persona.mbti = document.getElementById('pMbti').value;
+  saveState();
+  updateLabCard();
+});
+
+/* ---- render persona view ---- */
+function renderPersonaForm(){
+  const p = state.persona;
+  document.getElementById('pName').value = p.name;
+  document.getElementById('pPositioning').value = p.positioning;
+  document.getElementById('pMbti').value = p.mbti;
+  refreshPersonaChips();
+  syncTopicFromNiche();
+  applyLabTheme();
+  updateLabCard();
+  showWizardStep(1);
+}
+
+document.getElementById('btnSavePersona').addEventListener('click', ()=>{
+  saveState();
+  toast('人設已儲存');
+});
+
+document.getElementById('btnResetPersona').addEventListener('click', ()=>{
+  confirmAction(
+    '重新設定人設？',
+    '這會清空目前所有的人設資料（暱稱、定位、特質、價值觀…等），並回到第一步重新填寫，此動作無法復原。',
+    ()=>{
+      state.persona = defaultState().persona;
+      saveState();
+      wizardFurthest = 1;
+      renderPersonaForm();
+      toast('已重新設定，請重新填寫人設');
+    }
+  );
+});
+
+/* ---- 一問一答精靈流程：一次只顯示一個步驟，進度條可點擊直接跳頁 ---- */
+const WIZARD_TOTAL_STEPS = 8;
+let wizardStep = 1;
+let wizardFurthest = 1; // 走到過的最遠步驟，用來判斷哪些步驟允許點擊跳過去
+
+function renderProgressTrack(){
+  const track = document.getElementById('labProgressTrack');
+  track.innerHTML = '';
+  for(let i=1;i<=WIZARD_TOTAL_STEPS;i++){
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'lab-progress-dot' + (i===wizardStep?' current':(i<wizardStep?' done':''));
+    dot.title = `步驟 ${i}`;
+    dot.addEventListener('click', ()=>{
+      if(i <= wizardFurthest) showWizardStep(i);
+    });
+    track.appendChild(dot);
+  }
+}
+
+function showWizardStep(n){
+  wizardStep = Math.max(1, Math.min(WIZARD_TOTAL_STEPS, n));
+  wizardFurthest = Math.max(wizardFurthest, wizardStep);
+  document.querySelectorAll('#labPage > .lab-step[data-step]').forEach(el=>{
+    const isActive = parseInt(el.dataset.step) === wizardStep;
+    el.classList.toggle('lab-step-visible', isActive);
+  });
+  document.getElementById('labWizardProgress').textContent = `步驟 ${wizardStep} / ${WIZARD_TOTAL_STEPS}`;
+  document.getElementById('labWizardPrev').style.visibility = wizardStep === 1 ? 'hidden' : 'visible';
+  const nextBtn = document.getElementById('labWizardNext');
+  if(wizardStep === WIZARD_TOTAL_STEPS){
+    nextBtn.style.display = 'none';
+  }else{
+    nextBtn.style.display = '';
+    nextBtn.textContent = (wizardStep === WIZARD_TOTAL_STEPS - 1) ? '完成，確認人設 →' : '下一步 →';
+  }
+  renderProgressTrack();
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+document.getElementById('labWizardPrev').addEventListener('click', ()=>showWizardStep(wizardStep - 1));
+document.getElementById('labWizardNext').addEventListener('click', ()=>{
+  saveState();
+  showWizardStep(wizardStep + 1);
+});
+
+/* =========================================================
+   30-DAY PLAN GENERATOR
+========================================================= */
+const NICHE_ANGLE_POOL = {
+  美妝: ['化妝技巧分享','新手快速化妝法','名人仿妝挑戰','歐美日韓妝容比較','開運妝教學','專櫃VS開架比較'],
+  育兒: ['嬰幼兒日常教養','學齡前孩子引導心得','異國育兒文化觀察','兒童視角小小廚師','兒童視角小小攝影師'],
+  理財: ['小資族理財心態','技術面分析入門','理財產品評比','國內外理財趨勢觀察'],
+  寵物: ['新手飼主常見疑問','品種特性介紹','居家照護小技巧'],
+  職場觀察: ['職場溝通眉角','人際關係處理心得','職場觀察小故事'],
+  居家生活: ['收納整理技巧','居家佈置心得','生活小物開箱'],
+  美食料理: ['家常菜快速上手','食材挑選眉角','省錢料理心法']
+};
+
+
+
+/* =========================================================
+   IDEAS (靈感簿)
+========================================================= */
+const IDEA_TYPE_ICON = {'留言':'💬','貼文':'📝','短影片':'🎬','其他':'💡'};
+
+function populateIdeaCategorySelect(){
+  const select = document.getElementById('ideaCategory');
+  if(!select || select.dataset.populated) return;
+  const opts = Object.keys(CONTENT_CATEGORIES).map(k=>`<option value="${k}">${CONTENT_CATEGORIES[k].label}</option>`).join('');
+  select.innerHTML = '<option value="">不限（任何類型都會用到）</option>' + opts;
+  select.dataset.populated = '1';
+}
+
+function ideaCardHTML(idea){
+  const icon = IDEA_TYPE_ICON[idea.sourceType] || '💡';
+  const catLabel = idea.category && CONTENT_CATEGORIES[idea.category] ? CONTENT_CATEGORIES[idea.category].label : '不限類型';
+  return `<div class="content-card" data-id="${idea.id}">
+    <div class="cc-main">
+      <div class="cc-date">${icon} ${esc(idea.sourceType)} · <span style="color:var(--pink);">${esc(catLabel)}</span></div>
+      <div class="cc-script-preview" style="max-height:none; margin-top:6px; font-size:13.5px; color:var(--dark);">${esc(idea.content)}</div>
+      ${idea.link ? `<div class="cc-meta" style="margin-top:8px;"><a href="${esc(idea.link)}" target="_blank" rel="noopener" style="font-size:12px; color:var(--pink);">${esc(idea.link)}</a></div>` : ''}
+    </div>
+    <div class="cc-actions">
+      <button class="btn btn-danger btn-sm act-delete-idea">刪除</button>
+    </div>
+  </div>`;
+}
+
+function renderIdeas(){
+  populateIdeaCategorySelect();
+  const container = document.getElementById('ideasList');
+  if(!state.ideas.length){
+    container.innerHTML = `<div class="empty-state">
+      <div class="ico">💡</div>
+      <div>靈感簿還是空的</div>
+      <div>看到喜歡的留言或貼文，貼上來就對了</div>
+    </div>`;
+    return;
+  }
+  const sorted = [...state.ideas].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  container.innerHTML = sorted.map(i=>ideaCardHTML(i)).join('');
+  container.querySelectorAll('.content-card').forEach(card=>{
+    const id = card.dataset.id;
+    card.querySelector('.act-delete-idea').onclick = ()=>{
+      confirmAction('刪除這則靈感？','刪除後將無法復原。', ()=>{
+        state.ideas = state.ideas.filter(i=>i.id!==id);
+        saveState();
+        renderIdeas();
+        toast('已刪除');
+      });
+    };
+  });
+}
+
+document.getElementById('btnAddIdea').addEventListener('click', ()=>{
+  const content = document.getElementById('ideaContent').value.trim();
+  if(!content){ toast('請先貼上內容'); return; }
+  const sourceType = document.getElementById('ideaType').value;
+  const link = document.getElementById('ideaLink').value.trim();
+  const category = document.getElementById('ideaCategory').value;
+  state.ideas.push({id: uid(), content, sourceType, link, category, createdAt: Date.now()});
+  saveState();
+  document.getElementById('ideaContent').value = '';
+  document.getElementById('ideaLink').value = '';
+  renderIdeas();
+  toast('已加入靈感簿');
+});
+
+/* =========================================================
+   PROMPT GENERATOR — 依內容類型給「公式庫」規則，組裝成給AI看的提示詞
+   （這個工具本身不生成腳本，只負責把人設和公式規則講清楚；
+     每個類型都收錄多種爆款公式，AI依主題挑選最合適的一種，
+     多篇之間盡量輪流使用不同公式，會持續依你拆解的新影片擴充）
+========================================================= */
+const CATEGORY_NICHE = {
+  star: ['星座','兩性關係','心靈成長'],
+  beauty: ['美甲','美睫','霧眉','霧唇','紋唇','刺青','按摩','做臉','美髮','醫美'],
+  explore: ['探店','餐廳探店','咖啡廳探店'],
+  unbox: ['開箱','彩妝開箱'],
+  tutorial: ['彩妝教學','居家料理','健身'],
+  travel: ['旅遊']
+};
+
+const OPENING_LAW =
+`【通用鐵律】不管是哪一種類型，開頭直擊痛點／重點都是最好的方式：第一句話就要讓觀眾知道「這支影片在講什麼、跟我有什麼關係」，不要鋪陳、不要「大家好今天要來分享」這種開場。`;
+
+const STAR_RULE =
+`這個類型只有一種公式，請務必照做：
+
+【公式A・稱讚反轉型】
+開頭鐵律，最重要：影片前3秒一定要「直接、大力稱讚」這個主題／星座，用具體、生動、會讓人感覺被誇獎到的說法，不能拐彎抹角或用中性描述，要讓觀眾（不論自己是不是這個星座，或在乎的人是不是這個星座）一聽就覺得「這是在誇我／誇TA」，才會想繼續看下去。
+中段內容：接到跟生活日常有關的具體情境，例如談戀愛時的舉動、生氣時的反應、跟朋友相處的習慣，要有具體場景和引號對話（寫出這個人真實會講的話），不要只是抽象形容個性。可以參考這個起承轉合：先講大家常見的誤解，用「拜託……」轉折講出背後真正的原因，中間穿插「你越X，他越Y」的對比句和一句核心信念，最後用「但最好笑的是」做一次反轉，帶出第二個具體情境，再用「可是……」做一次收尾前的轉折。
+結尾：用一句「所以……」的金句收尾，並用能引發留言互動的問句當CTA（例如「這幾點你中了幾個？」）。`;
+
+const BEAUTY_BRAND_RULE =
+`這個類型只有一種公式，請務必照做：
+
+【公式A・作品展示型】
+這是品牌／作品展示帳號，目的是直接促成預約。內容以下列其中一種形式呈現：
+(1) 前後對比／改造型：開場先描述素底或受損狀態，中段講處理過程，結尾呈現成品反差，反差越大效果越好；
+(2) 知識科普型：先講顧客常見的選擇困難，再給一個清楚的判斷原則；
+(3) 顧客見證型：描述顧客做完之後的真實反應。
+⚠️ 特別注意：不要寫成純粹的「效果對比圖」形式（尤其瘦身、醫美類），這類格式演算法不利於推薦，內容要有敘事過程，不是單純前後對照兩張圖。
+結尾要有明確的預約／諮詢導向CTA。`;
+
+const BEAUTY_PERSONA_RULE =
+`這個類型只有一種公式，請務必照做：
+
+【公式A・人設反轉型】
+這是個人人設帳號，目的是靠這個人的個性和魅力吸引顧客，技術／作品不是重點，展現「這個人是誰」才是重點。
+結構：先鋪陳一個顧客常見的提問或互動情境（用引號寫出真實對話），中間用「拜託……」的轉折講出這個從業者的真實想法或原則，接著用「但最好笑的是」做一次反轉，最後用「所以……」收尾金句。
+語氣要依照人設特質決定：
+- 直接／犀利 → 毒舌真實，敢講真話不怕得罪人
+- 溫暖／療癒系 → 陪伴溫柔，重視讓客人放鬆自在
+- 幽默／碎念系 → 自嘲反差，用玩笑化解尷尬
+- 理性／專業感 → 冷靜可靠，話不多但精準到位
+建議用第一人稱（我／我們）敘事，結尾用能引發共鳴或認同感的問句收尾。`;
+
+const EXPLORE_RULE =
+`這個類型有以下幾種爆款公式，請依主題挑選最合適的一種；如果要生成多篇，不同篇之間請盡量輪流使用不同公式，不要每篇都套同一種：
+
+【公式A・地標鉤子型】
+第一句就要給一個明確的大地標（例如縣市或知名地區），不要用完整地址，讓觀眾3秒內就知道「這是哪裡」。中段具體介紹招牌品項、口感、價位，再給一個特色特寫（稀缺感、服務亮點、排隊人潮、限定供應等）。全片要貫穿一個探店人設角度（例如小資族、減脂期、在地人推薦），這個角度會決定挑什麼店、用什麼切入點介紹。結尾附上地點資訊（或引導私訊／留言索取店家資訊），CTA要具體、能引發互動。
+
+【公式B・精準客群鎖定型】
+開頭同時給「明確地標」＋「明確的細分主題」，不是只講地名，而是「地名＋細分主題」的組合（例如「韓國一定要來這間刷具店」，不是只講「韓國」）。這樣的雙重定位能在前幾秒就精準鎖定對這個主題有興趣的觀眾，越精準，按讚分享轉發的力道越大。
+
+【公式C・主觀加值型】
+不只是「推薦這個地方／這個品項」，還要加一句只有你會知道的主觀眉角或內行建議（例如「記得不要加糖」「這個時段人最少」）。這種個人化的細節會讓內容的價值感瞬間提升，不是單純的資訊陳述，觀眾會覺得「這是有經驗的人才知道的事」。`;
+
+const UNBOX_RULE =
+`這個類型有以下幾種爆款公式，請依主題挑選最合適的一種；如果要生成多篇，不同篇之間請盡量輪流使用不同公式，不要每篇都套同一種：
+
+【公式A・期待落差型】
+前3秒必須讓觀眾立刻知道今天要開箱什麼，直接展示產品或講出最大特色，不要鋪陳。可以參考這兩種下標方式：「最近＿＿真的超紅的！」「你們有聽過＿＿嗎？」中段先講網路上大家的期待／評價，再講實際體驗的落差或驚喜，要有具體細節，不要只用「好用」「不錯」這種空泛形容詞。結尾給明確結論：適合誰、不適合誰。
+
+【公式B・價格前置型】
+如果這個產品最大的賣點是「便宜到不合理」，價格必須在開頭幾秒內就直接講出來（例如「這件不到300你敢相信嗎？」），不能拖到中後段才公布。如果太晚公布價格，觀眾常常會誤以為東西很貴，直接把影片滑掉，白白浪費了最大的賣點。`;
+
+const TUTORIAL_RULE =
+`這個類型有以下幾種爆款公式，請依主題挑選最合適的一種；如果要生成多篇，不同篇之間請盡量輪流使用不同公式，不要每篇都套同一種：
+
+【公式A・步驟拆解型】
+用結果承諾或痛點鉤子開場，讓觀眾一聽就知道「看完能得到什麼」。中段拆解3-5個步驟，每個步驟只保留最關鍵的動作，不要鉅細靡遺；一定要有一個「關鍵訣竅」——一般人容易忽略、但真正決定成敗的那一步。結尾呈現成果。如果主題是健身、美容儀器操作這類有安全疑慮的內容，額外加一句安全提醒（例如「如果有不適請立刻停止」）。CTA用提問式收尾。
+
+【公式B・條件堆疊型】（適合料理、組合類教學）
+每個步驟都用「如果你加了＿＿，做了＿＿」的句型連續堆疊（例如「如果你加了地瓜，把它壓扁」「接著加了雞蛋，攪拌均勻」），一步一步疊加動作，最後才揭曉「這樣你就會得到＿＿」，而且這個結果要扣回帳號定位（例如「減脂期超適合吃的甜點」），不是隨便一道菜。
+
+【公式C・左右對比型】（適合穿搭、姿勢、技巧類教學）
+每個示範前先寫出痛點（例如「吊帶這樣穿太顯胖」），下一秒畫面／敘述瞬間切換成正確做法，並加一句具體的效果說明（例如「不僅遮手臂，還能拉長身形比例」）。適合搭配數字標題法，例如「5個顯瘦技巧」。這種公式重點是步驟要小、要簡單，讓觀眾看完能馬上照做。
+
+【公式D・情境綁定型】（適合生活技巧、攝影、實用類教學）
+標題不要用抽象主題，而是綁定一個具體情境或地點（例如「等地鐵的時候這樣拍」「咖啡廳這樣拍照」），讓觀眾在那個情境下剛好會想到、搜尋到這支影片。這種公式的關鍵是要讓觀眾覺得「這就是我現在需要的」。`;
+
+const TRAVEL_RULE =
+`這個類型有以下幾種爆款公式，請依主題挑選最合適的一種；如果要生成多篇，不同篇之間請盡量輪流使用不同公式，不要每篇都套同一種：
+
+【公式A・六格骨架型】
+情境（你在哪、面對什麼狀況）→ 問題（觀眾在意的疑問，例如值不值得去、怎麼玩）→ 特殊點（用觀眾熟悉的事物重新命名這個地方，製造記憶點，例如「這裡不是普通市場，比較像OO」）→ 證據（具體畫面／資訊佐證，不是空泛形容）→ 判斷（明確結論：值得／有條件推薦／不推薦，適合誰不適合誰）→ 行動（收藏／留言／下一集）。
+可以參考以下10種子模板挑一種或輪流用：店家值不值得、商品實測、意外功能商品、住宿決策、購物清單、行程規劃、地點氛圍重新命名、實用攻略、清單收藏、陪伴Vlog。
+
+【公式B・精準客群鎖定型】
+開頭同時給「明確地標」＋「明確的細分主題」，不是只講地名，而是「地名＋細分主題」的組合（例如「韓國一定要來這間刷具店」）。這樣的雙重定位能在前幾秒就精準鎖定對這個主題有興趣的觀眾，越精準，按讚分享轉發的力道越大。
+
+【公式C・主觀加值型】
+不只是「推薦這個地方」，還要加一句只有你會知道的主觀眉角或內行建議（例如「記得不要加糖」「這個時段人最少」）。這種個人化的細節會讓內容的價值感瞬間提升，觀眾會覺得「這是有經驗的人才知道的事」。`;
+
+const GROWTH_RULE =
+`這個類型只有一種公式，請務必照做：
+
+【公式A・反差好奇型】
+用一句話點出反差或意外，激發好奇心，例如「如何在＿＿贏過99%的人」「＿＿沒效果？因為你犯了這個99%的人都不知道的錯」。中段分享具體的心路歷程或方法，要有真實細節（時間點、具體數字、具體轉折），不要空泛。結尾用一句真誠的收尾句，並附上能引發互動的CTA。`;
+
+const CONTENT_CATEGORIES = {
+  star: {label:'星座／人物型', niches:CATEGORY_NICHE.star, rule:STAR_RULE},
+  beautyBrand: {label:'美業－品牌／作品展示帳號', niches:CATEGORY_NICHE.beauty, needAccountType:'brand', rule:BEAUTY_BRAND_RULE},
+  beautyPersona: {label:'美業－個人人設帳號', niches:CATEGORY_NICHE.beauty, needAccountType:'persona', rule:BEAUTY_PERSONA_RULE},
+  explore: {label:'探店型（餐廳／咖啡廳）', niches:CATEGORY_NICHE.explore, rule:EXPLORE_RULE},
+  unbox: {label:'開箱型', niches:CATEGORY_NICHE.unbox, rule:UNBOX_RULE},
+  tutorial: {label:'教學型（彩妝／料理／健身）', niches:CATEGORY_NICHE.tutorial, rule:TUTORIAL_RULE},
+  travel: {label:'旅遊／行程型', niches:CATEGORY_NICHE.travel, rule:TRAVEL_RULE},
+  growth: {label:'自我成長／通用型', niches:null, rule:GROWTH_RULE}
+};
+
+const SIX_CRITERIA_TEXT =
+`每一支影片的主題／標題，都必須評估以下六項特質，符合越多項，基礎流量越高：
+1. 話題性——是不是大家最近在討論、想知道的事
+2. 衝擊性——開頭3秒有沒有反差、意外、衝突感
+3. 知識量——觀眾看完有沒有學到東西
+4. 大眾性——不是只有小眾聽得懂，多數人都有感
+5. 帳號契合性——符不符合這個帳號的人設和主題定位
+6. 簡易性——一聽就懂，不需要額外解釋
+生成每一個選題之前，請先在心裡對照這六項，盡量兼顧越多項越好。`;
+
+function getMatchedCategories(persona){
+  const niches = persona.niche || [];
+  const at = persona.accountType === 'brand' ? 'brand' : 'persona';
+  const matched = [];
+  Object.keys(CONTENT_CATEGORIES).forEach(key=>{
+    const cat = CONTENT_CATEGORIES[key];
+    if(!cat.niches) return;
+    if(cat.needAccountType && cat.needAccountType !== at) return;
+    if(niches.some(n=>cat.niches.includes(n))) matched.push(key);
+  });
+  if(!matched.length) matched.push('growth');
+  return matched;
+}
+
+function getCategoryFullRule(key, persona){
+  const cat = CONTENT_CATEGORIES[key];
+  let rule = OPENING_LAW + '\n\n' + cat.rule;
+  if(key === 'unbox'){
+    rule += persona.accountType==='brand'
+      ? '\n\n（這是品牌／作品展示帳號，內容以客觀陳述為主。）'
+      : '\n\n（這是個人人設帳號，可以加重個人真實反應和吐槽。）';
+  }
+  return rule;
+}
+
+function buildPersonaSummaryText(p){
+  const lines = [];
+  lines.push(`暱稱／人設名稱：${p.name || '未設定'}`);
+  lines.push(`一句話定位：${p.positioning || '未設定'}`);
+  if(p.topic) lines.push(`主題／領域：${p.topic}`);
+  if(p.mbti) lines.push(`MBTI：${p.mbti}`);
+  if(p.traits.length) lines.push(`特質：${p.traits.join('、')}`);
+  if(p.values.length) lines.push(`價值觀：${p.values.join('、')}`);
+  if(p.pros.length) lines.push(`優點：${p.pros.join('、')}`);
+  if(p.cons.length) lines.push(`缺點：${p.cons.join('、')}`);
+  lines.push(`敘事視角：${p.pov==='first' ? '第一人稱（我／我們）' : '第三人稱'}`);
+  if(p.niche.length) lines.push(`帳號主題標籤：${p.niche.join('、')}`);
+  lines.push(`帳號類型：${p.accountType==='brand' ? '品牌／作品展示帳號' : '個人人設帳號'}`);
+  if(p.videoTypes.length) lines.push(`偏好拍攝方式：${p.videoTypes.join('、')}`);
+  return lines.join('\n');
+}
+
+function buildIdeasText(categoryKey){
+  const filtered = state.ideas.filter(i => !i.category || i.category === categoryKey);
+  if(!filtered.length) return '';
+  return filtered.map(i=>`・(${i.sourceType}) ${i.content}`).join('\n');
+}
+
+function buildPromptFindTopics(categoryKey, n){
+  const p = state.persona;
+  const ideasText = buildIdeasText(categoryKey);
+  return `你是短影音腳本專家。請先記住以下我的人設，接下來的對話都要保持這個人設一致，往後我請你生成內容時都要沿用：
+
+【我的人設】
+${buildPersonaSummaryText(p)}
+
+【這個內容類型的公式庫】
+${getCategoryFullRule(categoryKey, p)}
+
+【選題評估標準】
+${SIX_CRITERIA_TEXT}
+${ideasText ? '\n【我蒐集到的真實素材，可作為發想參考】\n'+ideasText : ''}
+
+我目前還沒有明確的拍攝主題，請幫我發想 ${n} 個不同的選題，每個都要對照六大標準評估，並附上完整腳本。不同選題請盡量使用公式庫裡不同的公式，不要每篇都套同一種。
+
+【輸出格式】
+每篇請包含：封面標題、完整口白腳本（可以直接照著唸，口白長度約30-60秒，大約130-250字）、用了公式庫裡的哪一種公式、拍攝建議、預估秒數。`;
+}
+
+function buildPromptSpecificTopic(categoryKey, topicInput){
+  const p = state.persona;
+  const ideasText = buildIdeasText(categoryKey);
+  return `你是短影音腳本專家。請先記住以下我的人設，接下來的對話都要保持這個人設一致，往後我請你生成內容時都要沿用：
+
+【我的人設】
+${buildPersonaSummaryText(p)}
+
+【這個內容類型的公式庫】
+${getCategoryFullRule(categoryKey, p)}
+
+【選題評估標準】
+${SIX_CRITERIA_TEXT}
+${ideasText ? '\n【我蒐集到的真實素材，可作為發想參考】\n'+ideasText : ''}
+
+我這次想拍的主題／內容是：${topicInput}
+
+請針對這個主題，從公式庫裡挑一個最合適的公式，幫我生成一篇完整腳本。
+
+【輸出格式】
+請包含：封面標題、完整口白腳本（可以直接照著唸，口白長度約30-60秒，大約130-250字）、用了公式庫裡的哪一種公式、拍攝建議、預估秒數。`;
+}
+
+function buildPromptContinue(n){
+  return `請依照剛剛設定的人設和公式庫，再幫我生成 ${n} 篇不同的選題，一樣要符合六大選題評估標準，不同篇請盡量輪流使用公式庫裡不同的公式，並附上完整腳本（封面標題、完整口白腳本、用了哪一種公式、拍攝建議、預估秒數）。`;
+}
+
+function buildPromptOptimize(){
+  return `請用以下六大選題評估標準，檢查我接下來貼給你的腳本，並針對每一項給出具體的優化建議：
+
+${SIX_CRITERIA_TEXT}
+
+我的腳本如下（請把你的腳本貼在這行下面，再一起送出）：
+──────────`;
+}
+
+function renderPromptsPage(){
+  const select = document.getElementById('promptCategorySelect');
+  const matched = getMatchedCategories(state.persona);
+  select.innerHTML = matched.map(k=>`<option value="${k}">${CONTENT_CATEGORIES[k].label}</option>`).join('');
+}
+
+document.getElementById('btnPromptA').addEventListener('click', ()=>{
+  const cat = document.getElementById('promptCategorySelect').value;
+  const n = parseInt(document.getElementById('promptCountA').value) || 5;
+  copyPrompt(buildPromptFindTopics(cat, n));
+});
+document.getElementById('btnPromptB').addEventListener('click', ()=>{
+  const cat = document.getElementById('promptCategorySelect').value;
+  const topic = document.getElementById('promptTopicInput').value.trim();
+  if(!topic){ toast('請先輸入你想拍的主題'); return; }
+  copyPrompt(buildPromptSpecificTopic(cat, topic));
+});
+document.getElementById('btnPromptC').addEventListener('click', ()=>{
+  const n = parseInt(document.getElementById('promptCountC').value) || 5;
+  copyPrompt(buildPromptContinue(n));
+});
+document.getElementById('btnPromptD').addEventListener('click', ()=>{
+  copyPrompt(buildPromptOptimize());
+});
+
+/* =========================================================
+   ADVISORY — 命名健檢 + 內容支柱建議（依課程筆記整理）
+========================================================= */
+const NAMING_RED_FLAGS = ['愛美','美魔女','愛漂亮','愛化妝','幸福生活','賺錢','網美'];
+
+function analyzeNaming(p){
+  const warnings = [];
+  const text = (p.name||'') + (p.positioning||'');
+  NAMING_RED_FLAGS.forEach(w=>{
+    if(text.includes(w)) warnings.push(`偵測到「${w}」，這種空泛自誇詞觀眾不會拿來搜尋，建議換成具體的擅長領域或關鍵字。`);
+  });
+  if((p.niche||[]).length >= 4){
+    warnings.push(`你選了 ${p.niche.length} 個主題標籤，範圍偏廣。課程筆記強調「粉絲不到3000人時，不要把不相干領域混在一起」，建議先鎖定1-2個最想深耕的方向，其餘之後再擴充。`);
+  }
+  if(!p.name) warnings.push('還沒填暱稱／人設名稱。好名字的三要素是「暱稱＋擅長領域＋關鍵字（服務項目）」，建議先補上。');
+  if(!p.positioning) warnings.push('還沒填一句話定位，這是觀眾3秒內認識你的關鍵。');
+  return warnings;
+}
+
+// 資訊價值支柱（初期適合做）／情緒價值支柱（萬粉後適合做），依課程筆記整理
+const NICHE_ADVICE = {
+  美妝: {
+    info: ['化妝技巧分享','新手快速化妝法','名人仿妝挑戰','歐美日韓妝容比較','開運妝教學','專櫃VS開架比較'],
+    emotion: ['美容師VLOG','保養秘訣分享','居家按摩教學'],
+    easy: ['化妝教學、名人仿妝、美妝好物推薦、國內外美妝分析——四選一深度發展'],
+    hard: ['美容師的vlog（適合萬粉後）、自家產品試用、個人工作室、保養按摩']
+  },
+  育兒: {
+    info: ['嬰幼兒日常教養','學齡前孩子引導心得','異國育兒文化觀察','兒童視角小小廚師','兒童視角小小攝影師'],
+    emotion: ['親子互動測試','夫妻互相爆料（只傾聽不批判）','隔代教養差異分享'],
+    easy: ['親子教養、婆媳價值觀差異、夫妻價值觀差異、罕見疾病——四選一深度發展'],
+    hard: ['單純記錄生活、帶小朋友出去玩、親子吃飯紀錄——除非有明確目的性（例如專門服務特殊需求親子）']
+  },
+  理財: {
+    info: ['小資族理財心態','技術面分析入門','理財產品評比','國內外理財趨勢觀察'],
+    emotion: ['心靈成長結合理財觀','兩性理財溝通','價值觀差異（小資族vs月光族）'],
+    easy: [], hard: []
+  },
+  寵物: { info: ['新手飼主常見疑問','品種特性介紹','居家照護小技巧'], emotion: [], easy: [], hard: [] },
+  職場觀察: { info: ['職場溝通眉角','人際關係處理心得','職場觀察小故事'], emotion: [], easy: [], hard: [] },
+  居家生活: { info: ['收納整理技巧','居家佈置心得','生活小物開箱'], emotion: [], easy: [], hard: [] },
+  美食料理: { info: ['家常菜快速上手','食材挑選眉角','省錢料理心法'], emotion: [], easy: [], hard: [] },
+  星座: {
+    info: ['星座塔羅','星盤運勢','MBTI測驗','16種人格同溫層'],
+    emotion: ['生命靈數','希塔療癒','人類圖'],
+    easy: [], hard: []
+  },
+  旅遊: {
+    info: [], emotion: [],
+    easy: ['住宿／飯店開箱、機票優惠、單一城市——三選一深度發展'],
+    hard: ['心靈雞湯＋環遊世界、網美照']
+  },
+  探店: {
+    info: [], emotion: [],
+    easy: ['住宿／飯店開箱、機票優惠、單一城市——三選一深度發展'],
+    hard: ['心靈雞湯＋環遊世界、網美照']
+  }
+};
+const BEAUTY_SERVICE_ADVICE = {
+  easy: ['影片大改造——反差越大效果越好'],
+  hard: ['作品集、除毛／效果對比圖（尤其瘦身、醫美類演算法不利推薦）、純工作室帳號']
+};
+const BEAUTY_SERVICE_NICHES = ['美甲','美睫','霧眉','霧唇','紋唇','刺青','按摩','做臉','美髮','醫美'];
+
+function renderAdvisory(){
+  const p = state.persona;
+
+  const warnings = analyzeNaming(p);
+  const namingEl = document.getElementById('namingCheckResult');
+  if(!warnings.length){
+    namingEl.innerHTML = `<div style="font-size:13.5px; color:var(--sage); display:flex; align-items:center; gap:8px;"><span style="font-size:18px;">✓</span>目前沒有偵測到常見地雷，繼續保持！</div>`;
+  }else{
+    namingEl.innerHTML = warnings.map(w=>
+      `<div style="font-size:13px; line-height:1.7; color:var(--medium); background:var(--cream); border-left:3px solid var(--pink); padding:10px 12px; border-radius:0 8px 8px 0; margin-bottom:8px;">⚠️ ${esc(w)}</div>`
+    ).join('');
+  }
+
+  const pillarEl = document.getElementById('pillarAdviceResult');
+  const niches = p.niche || [];
+  const isBeauty = niches.some(n=>BEAUTY_SERVICE_NICHES.includes(n));
+  const blocks = [];
+
+  niches.forEach(n=>{
+    const adv = NICHE_ADVICE[n];
+    if(!adv) return;
+    let html = `<div style="margin-bottom:16px;"><div style="font-weight:700; font-size:13.5px; margin-bottom:6px;">${esc(n)}</div>`;
+    if(adv.info && adv.info.length) html += `<div style="font-size:12.5px; color:var(--medium); margin-bottom:4px;">📘 資訊價值（初期可做）：${adv.info.map(esc).join('、')}</div>`;
+    if(adv.emotion && adv.emotion.length) html += `<div style="font-size:12.5px; color:var(--medium); margin-bottom:4px;">💛 情緒價值（萬粉後可做）：${adv.emotion.map(esc).join('、')}</div>`;
+    if(adv.easy && adv.easy.length) html += `<div style="font-size:12.5px; color:var(--sage); margin-bottom:4px;">✓ 最容易增粉：${adv.easy.map(esc).join('；')}</div>`;
+    if(adv.hard && adv.hard.length) html += `<div style="font-size:12.5px; color:#b3554a;">✕ 演算法較不推薦：${adv.hard.map(esc).join('；')}</div>`;
+    html += `</div>`;
+    blocks.push(html);
+  });
+
+  if(isBeauty){
+    blocks.push(`<div style="margin-bottom:16px;"><div style="font-weight:700; font-size:13.5px; margin-bottom:6px;">美業／服務類通用建議</div>
+      <div style="font-size:12.5px; color:var(--sage); margin-bottom:4px;">✓ 最容易增粉：${BEAUTY_SERVICE_ADVICE.easy.map(esc).join('；')}</div>
+      <div style="font-size:12.5px; color:#b3554a;">✕ 演算法較不推薦：${BEAUTY_SERVICE_ADVICE.hard.map(esc).join('；')}</div>
+      <div style="font-size:12.5px; color:var(--medium); margin-top:4px;">在IG／抖音經營個人品牌，通常比純工作室帳號更容易成功。</div>
+    </div>`);
+  }
+
+  pillarEl.innerHTML = blocks.length ? blocks.join('') : `<div class="empty-state" style="padding:10px 0;">選好「主題內容分類標籤」後，這裡會顯示該領域的內容支柱建議。</div>`;
+}
+
+/* =========================================================
+   BACKUP / EXPORT / IMPORT / RESET
+========================================================= */
+document.getElementById('btnExport').addEventListener('click', ()=>{
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const dateStr = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `人設內容備份_${dateStr}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('備份已下載');
+});
+
+document.getElementById('btnImport').addEventListener('click', ()=>{
+  const fileInput = document.getElementById('importFile');
+  const file = fileInput.files[0];
+  if(!file){ toast('請先選擇備份檔案'); return; }
+  const reader = new FileReader();
+  reader.onload = e=>{
+    try{
+      const parsed = JSON.parse(e.target.result);
+      if(!parsed || typeof parsed !== 'object' || !('persona' in parsed) && !('ideas' in parsed)){
+        throw new Error('格式不正確');
+      }
+      confirmAction('匯入並覆蓋目前資料？','此裝置上現有的人設與內容將被取代。', ()=>{
+        state = Object.assign(defaultState(), parsed, {
+          persona: Object.assign(defaultState().persona, parsed.persona||{})
+        });
+        saveState();
+        toast('匯入成功');
+        goTo('persona');
+      });
+    }catch(err){
+      toast('檔案格式錯誤，無法匯入');
+    }
+  };
+  reader.readAsText(file);
+});
+
+document.getElementById('btnReset').addEventListener('click', ()=>{
+  confirmAction('清空所有資料？','此裝置上的人設與所有內容都會被永久刪除。', ()=>{
+    state = defaultState();
+    saveState();
+    toast('資料已清空');
+    goTo('persona');
+  });
+});
+
+
+/* =========================================================
+   INIT
+========================================================= */
+buildLabQuiz();
+goTo('persona');
+</script>
+</body>
+</html>
