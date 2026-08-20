@@ -712,6 +712,7 @@ button{font-family:inherit;}
     <div class="page-head">
       <h1>經營建議</h1>
       <p style="line-height:1.9;">這裡會自動幫你檢查人設有沒有踩到常見的地雷，也會依照你選的主題，給你一些可以參考的內容方向。</p>
+      <p id="advisoryCurrentPersona" style="font-size:12.5px; color:var(--pink); font-weight:700; margin-top:8px;"></p>
     </div>
 
     <div class="section-block">
@@ -2215,41 +2216,87 @@ function analyzeNaming(p){
 // 資訊價值支柱（初期適合做）／情緒價值支柱（萬粉後適合做），依課程筆記整理
 const NICHE_ADVICE = {
   育兒: {
-    info: ['嬰幼兒日常教養','學齡前孩子引導心得','異國育兒文化觀察','兒童視角小小廚師','兒童視角小小攝影師'],
-    emotion: ['親子互動測試','夫妻互相爆料（只傾聽不批判）','隔代教養差異分享'],
-    easy: ['親子教養、婆媳價值觀差異、夫妻價值觀差異、罕見疾病——四選一深度發展'],
-    hard: ['單純記錄生活、帶小朋友出去玩、親子吃飯紀錄——除非有明確目的性（例如專門服務特殊需求親子）']
+    positioning: '育兒內容不是「教孩子」，而是「幫家長翻譯孩子」——父母看到問題行為，內容提供另一個可能的理解，再補上界線與教導方法。',
+    pillars: ['嬰幼兒日常教養','學齡前孩子引導心得','異國育兒文化觀察','親子互動測試','夫妻互相爆料（只傾聽不批判）','隔代教養差異分享'],
+    cta: '「你家孩子也會這樣嗎？留言分享你的經驗」',
+    caution: '不能用單一原因解釋所有孩子的行為；涉及身體／性教育話題不能公開孩子的裸體、身體細節、姓名或學校；療癒媽媽時不能只用「你很棒」取代真正的求助。'
+  },
+  寵物: {
+    positioning: '寵物帳號最容易犯的錯是只拍「可愛」，但可愛通常只是短暫停留；真正能讓觀眾追蹤的是寵物有穩定的「角色」——個性、關係與反差點。觀眾想知道的是「牠今天又做了什麼」「牠是不是也像我一樣」。',
+    pillars: ['下班陪伴','寵物內心戲','反差萌','治癒日常','關係故事','寵物選擇題','主人被教育','生活陪跑'],
+    cta: '「你家毛孩也會這樣嗎？」或「幫牠選下一集要做什麼」',
+    caution: '涉及疾病、治療或營養時，要把個人經驗與獸醫建議分開，不要把單一案例說成通用方法；不要用驚嚇、虐待暗示或強迫寵物反應來換流量。'
   },
   理財: {
-    info: ['小資族理財心態','技術面分析入門','理財產品評比','國內外理財趨勢觀察'],
-    emotion: ['心靈成長結合理財觀','兩性理財溝通','價值觀差異（小資族vs月光族）'],
-    easy: [], hard: []
-  },
-  寵物: { info: ['新手飼主常見疑問','品種特性介紹','居家照護小技巧'], emotion: [], easy: [], hard: [] },
-  星座: {
-    info: ['星座塔羅','星盤運勢','MBTI測驗','16種人格同溫層'],
-    emotion: ['生命靈數','希塔療癒','人類圖'],
-    easy: [], hard: []
+    positioning: '核心不是讓觀眾相信你能快速變有錢，而是讓他們相信你會把假設、風險、資料日期與不確定性說清楚。',
+    pillars: ['小資現金流（預算表／緊急預備金／固定支出檢查）','白話財經（用生活例子解釋利率／通膨／ETF／債券）','理財避雷（話術拆解／風險清單／費用與流動性）','財經故事（公司如何賺錢／產業變化／個案研究）'],
+    cta: '「收藏，之後檢查自己的支出；資料日期與來源放在說明」',
+    caution: '不是持牌財務顧問，內容是經營分析，不是保證收益或個人化投資建議；不要用「保證」「穩賺」「翻倍」這類承諾；每支影片至少標註資料日期、來源、適用前提與可能失效的條件。'
   },
   旅遊: {
-    info: [], emotion: [],
-    easy: ['住宿／飯店開箱、機票優惠、單一城市——三選一深度發展'],
-    hard: ['心靈雞湯＋環遊世界、網美照']
+    positioning: '不要只拍風景，要提供一種出發理由——內容功能通常分三種：讓人想去、教人怎麼去、替人做選擇。',
+    pillars: ['目的地情緒（最值得記住的光線／聲音／氣味／時刻）','行程攻略（半日／一日／三日路線與交通順序）','預算透明（交通／住宿／餐飲／門票／隱藏費用）','避雷決策（什麼季節不適合／哪些景點可跳過／排隊時間）','人設旅遊（小資／親子／情侶／獨旅／慢旅行／無障礙）'],
+    cta: '「先收藏，出發前再核對最新交通與營業資訊」',
+    caution: '價格、營業時間、簽證、交通與活動期限要標註查詢日期，並提醒觀眾以官方最新公告為準。'
   },
   探店: {
-    info: [], emotion: [],
-    easy: ['住宿／飯店開箱、機票優惠、單一城市——三選一深度發展'],
-    hard: ['心靈雞湯＋環遊世界、網美照']
+    positioning: '不要只說「這家很好吃」，先界定觀眾什麼時候會需要它——下班後想吃熱的、帶長輩聚餐、預算300元、約會不想踩雷、雨天也能排隊、外地人第一次來。',
+    pillars: ['小資吃法（多少錢吃飽／套餐怎麼點）','場景推薦（約會／聚餐／親子／慶生／獨食）','菜單決策（第一次去必點／最容易踩雷／份量比較）','空間特色（裝潢／座位／拍照點／是否適合久坐）','在地故事（老店歷史／老闆特色／地方文化）'],
+    cta: '「你會點招牌菜還是隱藏菜？標記一起吃的人」',
+    caution: '評論要區分個人口味與可觀察事實，不要因合作而隱藏贈餐或付費關係；店家資訊可能變動時要標示拍攝日期。'
+  },
+  星座: {
+    positioning: '把星座當作社交語言，不要假裝絕對命定——不是宣稱「你一定會怎樣」，是讓觀眾覺得「這很像我」「我要傳給那個朋友」。',
+    pillars: ['日常性格觀察','關係互動遊戲','星座迷思與自我理解'],
+    cta: '「你是哪個星座？哪一項最像你？」',
+    caution: '避免把星座內容說成醫療、人格診斷、感情保證或人生決策依據，用「常見印象」「娛樂觀察」「可能有共鳴」等語氣，比絕對化與貼標籤更能長期建立安全感。'
+  },
+  心靈成長: {
+    positioning: '只有金句容易被按讚，未必會被長期追蹤；穩定的帳號要讓觀眾得到一個可以今天執行的小方法。推薦結構：命名狀態→解除羞恥→重新理解→一個小行動。',
+    pillars: ['拖延','自我懷疑','界線','比較','失敗','休息','關係耗損','重新開始'],
+    cta: '「如果你最近也很累，先把這支留給自己」',
+    caution: '不要把所有痛苦都簡化成想太多，也不要用「吸引力法則」或單一句正能量否定真實困難；若內容觸及憂鬱、自傷、創傷或嚴重焦慮，應鼓勵尋求合格心理師、醫師或當地支持資源，不要把帳號塑造成治療替代品。'
+  },
+  兩性關係: {
+    positioning: '極端台詞容易獲得留言，但長期信任來自幫觀眾辨識健康互動，而非鼓勵測試、操控、冷暴力或報復。',
+    pillars: ['溝通翻譯（提供替代說法）','界線教育（拒絕／隱私／時間／金錢／社交界線）','衝突修復（道歉／重述需求／確認彼此理解）','紅旗與綠旗（用具體行為，不是人格羞辱判斷）','情境短劇（同一句話，健康回應與傷害性回應的差異）'],
+    cta: '「你會怎麼說？留言一個比較溫和的版本」',
+    caution: '避免以單一短片替陌生人下診斷；若涉及暴力、控制或安全風險，應把安全與求助放在比挽回關係更優先的位置。'
+  },
+  穿搭: {
+    positioning: '差異化不只在「穿得好看」，更在於觀眾能否把內容套進自己的身高、身形、預算、場合與氣候——建議把帳號做成「穿搭座標系」。',
+    pillars: ['身高（145／155／165公分試穿）','身形（小個子／梨形／肩寬／圓身／直筒）','預算（500元內／平價品牌／投資單品）','場合（上班／約會／旅行／海邊／婚禮）','變化（一件褲子3種搭配、換鞋包就換風格）','品牌（新品／折扣／試穿／尺寸與材質比較）'],
+    cta: '「你想看哪個身高／場合的下一套？」',
+    caution: '不要只放品牌名稱，要補身高、體重或尺寸、版型與真實穿著感受；體重或身形資訊涉及個人隱私，可以只提供觀眾真正需要的比例資訊。'
+  },
+  健身: {
+    positioning: '用「問題→動作→常見錯誤→替代版本→訓練頻率」呈現。過度承諾快速瘦身、局部減脂或保證改善疼痛，會傷害信任，也可能造成錯誤運動。',
+    pillars: ['新手居家運動','久坐伸展','銀髮友善','低衝擊','力量訓練入門','跑步習慣','動作矯正基礎教育'],
+    cta: '「先收藏，動作不舒服就停止並改做低強度版本」',
+    caution: '每支影片應清楚說明適合程度、強度、次數、呼吸、停止訊號與替代動作；疼痛、舊傷、懷孕、慢性病或術後族群不宜直接套用一般影片，應先詢問合格醫療或運動專業人員。'
   }
 };
+// 探店的建議同時適用於「探店」「餐廳探店」「咖啡廳探店」三個標籤（避免只認得完全等於「探店」的舊bug）
+NICHE_ADVICE['餐廳探店'] = NICHE_ADVICE['探店'];
+NICHE_ADVICE['咖啡廳探店'] = NICHE_ADVICE['探店'];
+
 const BEAUTY_SERVICE_ADVICE = {
   easy: ['影片大改造——反差越大效果越好', '過程紀實型：拍施作過程跟客人的真實互動，建立信任感比只發成品圖更有效'],
   hard: ['作品集、除毛／效果對比圖（尤其瘦身、醫美類演算法不利推薦）、純工作室帳號']
 };
-const BEAUTY_SERVICE_NICHES = ['美甲','美睫','霧眉','霧唇','紋唇','刺青','按摩','做臉','美髮','醫美'];
+const BEAUTY_SERVICE_NICHES = CATEGORY_NICHE.beauty; // 共用同一份清單，避免跟公式庫的美業標籤定義兜不起來
+
+function findCategoryKeyForNiche(nicheTag){
+  for(const key in CATEGORY_NICHE){
+    if(CATEGORY_NICHE[key].includes(nicheTag)) return key;
+  }
+  return null;
+}
 
 function renderAdvisory(){
   const p = state.persona;
+  const activeIdx = state.personas.findIndex(pp=>pp.id===state.activePersonaId);
+  document.getElementById('advisoryCurrentPersona').textContent = `目前顯示：${getPersonaLabel(p, activeIdx)}`;
 
   const warnings = analyzeNaming(p);
   const namingEl = document.getElementById('namingCheckResult');
@@ -2267,19 +2314,36 @@ function renderAdvisory(){
   const blocks = [];
 
   niches.forEach(n=>{
+    if(BEAUTY_SERVICE_NICHES.includes(n) || n === '吃播') return; // 這兩類下面有專屬區塊，這裡跳過避免重複
     const adv = NICHE_ADVICE[n];
-    if(!adv) return;
-    let html = `<div style="margin-bottom:16px;"><div style="font-weight:700; font-size:13.5px; margin-bottom:6px;">${esc(n)}</div>`;
-    if(adv.info && adv.info.length) html += `<div style="font-size:12.5px; color:var(--medium); margin-bottom:4px;">📘 資訊價值（初期可做）：${adv.info.map(esc).join('、')}</div>`;
-    if(adv.emotion && adv.emotion.length) html += `<div style="font-size:12.5px; color:var(--medium); margin-bottom:4px;">💛 情緒價值（萬粉後可做）：${adv.emotion.map(esc).join('、')}</div>`;
-    if(adv.easy && adv.easy.length) html += `<div style="font-size:12.5px; color:var(--sage); margin-bottom:4px;">✓ 最容易增粉：${adv.easy.map(esc).join('；')}</div>`;
-    if(adv.hard && adv.hard.length) html += `<div style="font-size:12.5px; color:#b3554a;">✕ 演算法較不推薦：${adv.hard.map(esc).join('；')}</div>`;
-    html += `</div>`;
-    blocks.push(html);
+    if(adv){
+      let html = `<div style="margin-bottom:16px;"><div style="font-weight:700; font-size:13.5px; margin-bottom:6px;">${esc(n)}</div>`;
+      if(adv.positioning) html += `<div style="font-size:12.5px; color:var(--dark); line-height:1.7; margin-bottom:6px;">🎯 <b>定位邏輯：</b>${esc(adv.positioning)}</div>`;
+      if(adv.pillars && adv.pillars.length) html += `<div style="font-size:12.5px; color:var(--medium); margin-bottom:6px;">📘 <b>內容支柱：</b>${adv.pillars.map(esc).join('、')}</div>`;
+      if(adv.cta) html += `<div style="font-size:12.5px; color:var(--sage); margin-bottom:6px;">💬 <b>CTA建議：</b>${esc(adv.cta)}</div>`;
+      if(adv.caution) html += `<div style="font-size:12.5px; color:#b3554a; line-height:1.7;">⚠️ ${esc(adv.caution)}</div>`;
+      html += `</div>`;
+      blocks.push(html);
+      return;
+    }
+    // 沒有深度課程筆記整理過的標籤，退回顯示這個標籤對應到哪一套公式庫，確保不會什麼都不顯示
+    const catKey = findCategoryKeyForNiche(n);
+    if(catKey && CONTENT_CATEGORIES[catKey]){
+      const cat = CONTENT_CATEGORIES[catKey];
+      const formulaCount = (cat.rule.match(/【公式/g)||[]).length;
+      let html = `<div style="margin-bottom:16px;"><div style="font-weight:700; font-size:13.5px; margin-bottom:6px;">${esc(n)}</div>`;
+      html += `<div style="font-size:12.5px; color:var(--medium); line-height:1.7;">這個標籤對應到「${esc(cat.label)}」${formulaCount ? `，公式庫裡有 ${formulaCount} 組爆款公式可以用` : ''}。到「提示詞產生器」選這個類型，就能直接產生對應的提示詞。</div>`;
+      html += `</div>`;
+      blocks.push(html);
+    }
   });
 
   if(isBeauty){
+    const accountTypeLabel = p.accountType === 'brand' ? '品牌／作品展示帳號' : '個人人設帳號';
     blocks.push(`<div style="margin-bottom:16px;"><div style="font-weight:700; font-size:13.5px; margin-bottom:6px;">美業／服務類專屬建議</div>
+      <div style="font-size:12.5px; background:var(--light-pink); border-radius:6px; padding:8px 10px; margin-bottom:10px; color:var(--dark);">
+        ⚠️ 你目前的<b>帳號類型</b>設定是「${esc(accountTypeLabel)}」，這會決定提示詞產生器套用哪一套公式。如果這不是你要的，回「人設定位」頁的「主題內容分類標籤」步驟可以切換。
+      </div>
       <div style="font-size:12.5px; color:var(--sage); margin-bottom:4px;">✓ 最容易增粉：${BEAUTY_SERVICE_ADVICE.easy.map(esc).join('；')}</div>
       <div style="font-size:12.5px; color:#b3554a; margin-bottom:8px;">✕ 演算法較不推薦：${BEAUTY_SERVICE_ADVICE.hard.map(esc).join('；')}</div>
       <div style="font-size:12.5px; color:var(--medium); line-height:1.8;">
