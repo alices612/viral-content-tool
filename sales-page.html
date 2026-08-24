@@ -60,6 +60,10 @@ img{max-width:100%;}
   border:none; cursor:pointer; transition:.15s;
 }
 .cta-btn:hover{ background:var(--accent-dark); transform:translateY(-1px); }
+.cta-btn.disabled{
+  background:#C9C2BC; color:#8A8178; box-shadow:none; cursor:not-allowed; pointer-events:none;
+}
+.cta-btn.disabled:hover{ background:#C9C2BC; transform:none; }
 .cta-sub{ font-size:12px; color:var(--ink-soft); margin-top:12px; }
 
 /* ---------- sections ---------- */
@@ -212,7 +216,7 @@ body{ padding-bottom:78px; }
     <h1>爆款製造機</h1>
     <div class="price-line">NT<b>$1299</b>　一次買斷永久使用</div>
     <p class="sub">帶你從零到有，做出屬於你自己的人設定位，自動生成可以直接貼給 ChatGPT 的完整指令，拍出真正吸引人的內容。</p>
-    <a class="cta-btn" href="https://cart.cashier.ecpay.com.tw/qp/2P52">立即購買 NT$1299</a>
+    <span class="cta-btn disabled">暫停出售</span>
     <div class="cta-sub">數位內容，付款完成後至官方LINE領取</div>
   </div>
 </section>
@@ -367,9 +371,9 @@ body{ padding-bottom:78px; }
         隨著大家做出來的內容，我會持續把新的問題、解決方法與優化方式放進系統，讓大家可以拿到最新的爆款內容——每一次版本升級，價格也會隨階段性調整。<br><br>
         <b>已購買的使用者不會受到後續漲價影響。</b>
       </div>
-      <a class="cta-btn" href="https://cart.cashier.ecpay.com.tw/qp/2P52" style="display:block;">立即購買 NT$1299</a>
+      <span class="cta-btn disabled" style="display:block;">暫停出售</span>
       <div class="warn-box">
-        ⚠️ 本商品為數位內容（線上流程包），一經提供即完成交易，不適用七天鑑賞期。點擊「立即購買」即表示你已閱讀並同意本說明。
+        ⚠️ 本商品目前暫停出售。本商品為數位內容（線上流程包），一經提供即完成交易，不適用七天鑑賞期。
       </div>
       <div class="line-box">
         <p>📸 付款完成後，請務必截圖訂單，至官方 LINE 領取您的「爆款製造機」流程包。</p>
@@ -444,7 +448,7 @@ body{ padding-bottom:78px; }
 
 <div class="sticky-cta">
   <div class="p"><b>NT$1299</b></div>
-  <a class="cta-btn" href="https://cart.cashier.ecpay.com.tw/qp/2P52">立即購買</a>
+  <span class="cta-btn disabled">暫停出售</span>
 </div>
 
 </body>
